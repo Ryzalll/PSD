@@ -4,7 +4,14 @@
 format: jb-book
 root: intro
 chapters:
-- file: markdown
-- file: notebooks
-- file: markdown-notebooks
-- file: mymarkdown
+- file : memahami-bisnis
+- file : data-understanding
+  sections:
+  - file : explorasi-data
+
+# - file : eksplorasi-data
+
+# - file: markdown
+# - file: notebooks
+# - file: markdown-notebooks
+# - file: mymarkdown

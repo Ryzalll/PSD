@@ -4,7 +4,7 @@ Halo semuanya, disini anda akan melihat tugas Proyek Sains Data milik saya selam
 
 Informasi terkait saya : 
 
-Nama : Muhammad Rizal Febriant
+Nama : Muhammad Rizal Febrianto
 
 NIM : 230411100097
 
