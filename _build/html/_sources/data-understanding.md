@@ -1,54 +1,92 @@
 # Data Understanding
 
-Whether you write your book's content in Jupyter Notebooks (`.ipynb`) or
-in regular markdown files (`.md`), you'll write in the same flavor of markdown
-called **MyST Markdown**.
-This is a simple file to help you get started and show off some syntax.
+## 1. Deskripsi Dataset
 
-## What is MyST?
+Dataset yang digunakan adalah "Healthcare Dataset" yang bersumber dari Kaggle. Dataset ini terdiri dari 10.000 baris dan 15 kolom.
 
-MyST stands for "Markedly Structured Text". It
-is a slight variation on a flavor of markdown called "CommonMark" markdown,
-with small syntax extensions to allow you to write **roles** and **directives**
-in the Sphinx ecosystem.
+**Kolom-kolom utama meliputi:**
+- `Name`: Nama pasien
+- `Age`: Usia pasien
+- `Gender`: Jenis kelamin
+- `Medical Condition`: Kondisi medis utama
+- `Date of Admission`: Tanggal masuk rumah sakit
+- `Billing Amount`: Jumlah tagihan (dalam format notasi ilmiah dengan pemisah koma)
+- `Admission Type`: Jenis admisi (misalnya, 'Urgent', 'Emergency', 'Elective')
+- `Medication`: Obat yang diberikan
+- `Test Results`: Hasil tes medis
 
-For more about MyST, see [the MyST Markdown Overview](https://jupyterbook.org/content/myst.html).
+---
 
-## Sample Roles and Directives
+## 2. Load Dataset
 
-Roles and directives are two of the most powerful tools in Jupyter Book. They
-are like functions, but written in a markup language. They both
-serve a similar purpose, but **roles are written in one line**, whereas
-**directives span many lines**. They both accept different kinds of inputs,
-and what they do with those inputs depends on the specific role or directive
-that is being called.
+Dataset yang digunakan akan diload ke PostGreSQL, tahapan seperti berikut : 
 
-Here is a "note" directive:
-
-```{note}
-Here is a note
+- **Pahami Tipe Data yang ada** Memahami tipe data pada setiap kolom untuk melakukan tahapan import dataset ke postgreSQL.
+Setelah mengamati dataset yang ada, coba untuk membuat tabel baru di dataset yang ada di PostGreSQL.
+dengan syntax seperti berikut : 
+```{code}
+    CREATE TABLE healthcare_data (
+    Name VARCHAR(255),
+    Age INTEGER,
+    Gender VARCHAR(50),
+    Blood_Type VARCHAR(10),
+    Medical_Condition VARCHAR(255),
+    Date_of_Admission DATE,
+    Doctor VARCHAR(255),
+    Hospital VARCHAR(255),
+    Insurance_Provider VARCHAR(255),
+    Billing_Amount VARCHAR(255), -- Diubah sementara menjadi teks
+    Room_Number INTEGER,
+    Admission_Type VARCHAR(50),
+    Discharge_Date DATE,
+    Medication VARCHAR(255),
+    Test_Results VARCHAR(50)
+);
 ```
 
-It will be rendered in a special box when you build your book.
+- Lakukan proses impor melalui pgAdmin:
 
-Here is an inline directive to refer to a document: {doc}`markdown-notebooks`.
+- Klik kanan pada tabel **healthcare_data** yang baru.
+
+- Pilih Import/Export....
+
+- Pastikan toggle pada Import.
+
+- Pilih file **healthcare_dataset.csv**.
+
+- Di tab Options, pastikan Header dicentang dan Delimiter adalah ; (semicolon).
 
 
-## Citations
-
-You can also cite references that are stored in a `bibtex` file. For example,
-the following syntax:  will render like
-
-Moreover, you can insert a bibliography into your page with this syntax:
-The `{bibliography}` directive must be used for all the `{cite}` roles to
-render properly.
-For example, if the references for your book are stored in `references.bib`,
-then the bibliography is inserted with:
-
-```{bibliography}
+- **Mengoptimalisasikan tipe data kolom:** 
+    - Ganti semua koma (,) menjadi titik (.) di kolom Billing_Amount.
+    - Ubah tipe data kolom Billing_Amount menjadi NUMERIC.
+```{code}
+UPDATE healthcare_data
+SET Billing_Amount = REPLACE(Billing_Amount, ',', '.');
+```
+```{code}
+ALTER TABLE healthcare_data
+ALTER COLUMN Billing_Amount TYPE NUMERIC USING Billing_Amount::NUMERIC;
 ```
 
-## Learn more
+## 3. Connect ke Power BI
 
-This is just a simple starter to get you started.
-You can learn a lot more at [jupyterbook.org](https://jupyterbook.org).
+- Pergi ke menu **Home**, dan pilih **Get Data**
+
+```{image} ../../getdata.png
+:alt: getdata
+:class: mb-1
+:width: 800px
+:align: center
+```
+
+- Kemudian pilih, **PostGreSQL** 
+- Masukkan nama **Server** dan **Database** yang sudah dibuat sebelumnya
+- Kemudian pilih nama tabel yang sudah dibuat **healthcare_data**
+- Hasilnya akan seperti gambar di bawah
+```{image} ../../datas.png
+:alt: data
+:class: mb-1
+:width: 300px
+:align: center
+```
