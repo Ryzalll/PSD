@@ -5,7 +5,7 @@
 ### a. Distribusi data **Umur** , **Billing Amount** dan **Gender**
 
 Umur 
-```{image} ../../distribusi_umur.png
+```{image} /_images/distribusi_umur.png
 :alt: umur
 :class: mb-1
 :width:500px
@@ -13,7 +13,7 @@ Umur
 ```
 
 Billing Amount 
-```{image} ../../distribusi_billing_amount.png
+```{image} /_images/distribusi_billing_amount.png
 :alt: Billing Amount
 :class: mb-1
 :width:500px
@@ -22,7 +22,7 @@ Billing Amount
 
 
 Gender
-```{image} ../../distribusi_gender.png
+```{image} /_images/distribusi_gender.png
 :alt: gender
 :class: mb-1
 :width:500px
