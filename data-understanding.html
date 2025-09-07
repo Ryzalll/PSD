@@ -380,10 +380,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-myst">What is MyST?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-roles-and-directives">Sample Roles and Directives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#citations">Citations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learn-more">Learn more</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deskripsi-dataset">1. Deskripsi Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-dataset">2. Load Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#connect-ke-power-bi">3. Connect ke Power BI</a></li>
 </ul>
             </nav>
         </div>
@@ -397,56 +396,88 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="data-understanding">
 <h1>Data Understanding<a class="headerlink" href="#data-understanding" title="Link to this heading">#</a></h1>
-<p>Whether you write your book’s content in Jupyter Notebooks (<code class="docutils literal notranslate"><span class="pre">.ipynb</span></code>) or
-in regular markdown files (<code class="docutils literal notranslate"><span class="pre">.md</span></code>), you’ll write in the same flavor of markdown
-called <strong>MyST Markdown</strong>.
-This is a simple file to help you get started and show off some syntax.</p>
-<section id="what-is-myst">
-<h2>What is MyST?<a class="headerlink" href="#what-is-myst" title="Link to this heading">#</a></h2>
-<p>MyST stands for “Markedly Structured Text”. It
-is a slight variation on a flavor of markdown called “CommonMark” markdown,
-with small syntax extensions to allow you to write <strong>roles</strong> and <strong>directives</strong>
-in the Sphinx ecosystem.</p>
-<p>For more about MyST, see <a class="reference external" href="https://jupyterbook.org/content/myst.html">the MyST Markdown Overview</a>.</p>
+<section id="deskripsi-dataset">
+<h2>1. Deskripsi Dataset<a class="headerlink" href="#deskripsi-dataset" title="Link to this heading">#</a></h2>
+<p>Dataset yang digunakan adalah “Healthcare Dataset” yang bersumber dari Kaggle. Dataset ini terdiri dari 10.000 baris dan 15 kolom.</p>
+<p><strong>Kolom-kolom utama meliputi:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Name</span></code>: Nama pasien</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Age</span></code>: Usia pasien</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Gender</span></code>: Jenis kelamin</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Medical</span> <span class="pre">Condition</span></code>: Kondisi medis utama</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Date</span> <span class="pre">of</span> <span class="pre">Admission</span></code>: Tanggal masuk rumah sakit</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Billing</span> <span class="pre">Amount</span></code>: Jumlah tagihan (dalam format notasi ilmiah dengan pemisah koma)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Admission</span> <span class="pre">Type</span></code>: Jenis admisi (misalnya, ‘Urgent’, ‘Emergency’, ‘Elective’)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Medication</span></code>: Obat yang diberikan</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Test</span> <span class="pre">Results</span></code>: Hasil tes medis</p></li>
+</ul>
 </section>
-<section id="sample-roles-and-directives">
-<h2>Sample Roles and Directives<a class="headerlink" href="#sample-roles-and-directives" title="Link to this heading">#</a></h2>
-<p>Roles and directives are two of the most powerful tools in Jupyter Book. They
-are like functions, but written in a markup language. They both
-serve a similar purpose, but <strong>roles are written in one line</strong>, whereas
-<strong>directives span many lines</strong>. They both accept different kinds of inputs,
-and what they do with those inputs depends on the specific role or directive
-that is being called.</p>
-<p>Here is a “note” directive:</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Here is a note</p>
+<hr class="docutils" />
+<section id="load-dataset">
+<h2>2. Load Dataset<a class="headerlink" href="#load-dataset" title="Link to this heading">#</a></h2>
+<p>Dataset yang digunakan akan diload ke PostGreSQL, tahapan seperti berikut :</p>
+<ul class="simple">
+<li><p><strong>Pahami Tipe Data yang ada</strong> Memahami tipe data pada setiap kolom untuk melakukan tahapan import dataset ke postgreSQL.
+Setelah mengamati dataset yang ada, coba untuk membuat tabel baru di dataset yang ada di PostGreSQL.
+dengan syntax seperti berikut :</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">CREATE</span> <span class="n">TABLE</span> <span class="n">healthcare_data</span> <span class="p">(</span>
+    <span class="n">Name</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+    <span class="n">Age</span> <span class="n">INTEGER</span><span class="p">,</span>
+    <span class="n">Gender</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span>
+    <span class="n">Blood_Type</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
+    <span class="n">Medical_Condition</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+    <span class="n">Date_of_Admission</span> <span class="n">DATE</span><span class="p">,</span>
+    <span class="n">Doctor</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+    <span class="n">Hospital</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+    <span class="n">Insurance_Provider</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+    <span class="n">Billing_Amount</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span> <span class="o">--</span> <span class="n">Diubah</span> <span class="n">sementara</span> <span class="n">menjadi</span> <span class="n">teks</span>
+    <span class="n">Room_Number</span> <span class="n">INTEGER</span><span class="p">,</span>
+    <span class="n">Admission_Type</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span>
+    <span class="n">Discharge_Date</span> <span class="n">DATE</span><span class="p">,</span>
+    <span class="n">Medication</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+    <span class="n">Test_Results</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+<span class="p">);</span>
+</pre></div>
 </div>
-<p>It will be rendered in a special box when you build your book.</p>
-<p>Here is an inline directive to refer to a document: <a class="reference internal" href="markdown-notebooks.html"><span class="doc">Notebooks with MyST Markdown</span></a>.</p>
+<ul class="simple">
+<li><p>Lakukan proses impor melalui pgAdmin:</p></li>
+<li><p>Klik kanan pada tabel <strong>healthcare_data</strong> yang baru.</p></li>
+<li><p>Pilih Import/Export….</p></li>
+<li><p>Pastikan toggle pada Import.</p></li>
+<li><p>Pilih file <strong>healthcare_dataset.csv</strong>.</p></li>
+<li><p>Di tab Options, pastikan Header dicentang dan Delimiter adalah ; (semicolon).</p></li>
+<li><p><strong>Mengoptimalisasikan tipe data kolom:</strong></p>
+<ul>
+<li><p>Ganti semua koma (,) menjadi titik (.) di kolom Billing_Amount.</p></li>
+<li><p>Ubah tipe data kolom Billing_Amount menjadi NUMERIC.</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">UPDATE</span> <span class="n">healthcare_data</span>
+<span class="n">SET</span> <span class="n">Billing_Amount</span> <span class="o">=</span> <span class="n">REPLACE</span><span class="p">(</span><span class="n">Billing_Amount</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ALTER</span> <span class="n">TABLE</span> <span class="n">healthcare_data</span>
+<span class="n">ALTER</span> <span class="n">COLUMN</span> <span class="n">Billing_Amount</span> <span class="n">TYPE</span> <span class="n">NUMERIC</span> <span class="n">USING</span> <span class="n">Billing_Amount</span><span class="p">::</span><span class="n">NUMERIC</span><span class="p">;</span>
+</pre></div>
+</div>
 </section>
-<section id="citations">
-<h2>Citations<a class="headerlink" href="#citations" title="Link to this heading">#</a></h2>
-<p>You can also cite references that are stored in a <code class="docutils literal notranslate"><span class="pre">bibtex</span></code> file. For example,
-the following syntax:  will render like</p>
-<p>Moreover, you can insert a bibliography into your page with this syntax:
-The <code class="docutils literal notranslate"><span class="pre">{bibliography}</span></code> directive must be used for all the <code class="docutils literal notranslate"><span class="pre">{cite}</span></code> roles to
-render properly.
-For example, if the references for your book are stored in <code class="docutils literal notranslate"><span class="pre">references.bib</span></code>,
-then the bibliography is inserted with:</p>
-<div class="docutils container" id="id1">
-<div role="list" class="citation-list">
-<div class="citation" id="id2" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span>HdHPK14<span class="fn-bracket">]</span></span>
-<p>Christopher Ramsay Holdgraf, Wendy de Heer, Brian N. Pasley, and Robert T. Knight. Evidence for Predictive Coding in Human Auditory Cortex. In <em>International Conference on Cognitive Neuroscience</em>. Brisbane, Australia, Australia, 2014. Frontiers in Neuroscience.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="learn-more">
-<h2>Learn more<a class="headerlink" href="#learn-more" title="Link to this heading">#</a></h2>
-<p>This is just a simple starter to get you started.
-You can learn a lot more at <a class="reference external" href="https://jupyterbook.org">jupyterbook.org</a>.</p>
+<section id="connect-ke-power-bi">
+<h2>3. Connect ke Power BI<a class="headerlink" href="#connect-ke-power-bi" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Pergi ke menu <strong>Home</strong>, dan pilih <strong>Get Data</strong></p></li>
+</ul>
+<a class="mb-1 reference internal image-reference" href="../../getdata.png"><img alt="getdata" class="mb-1 align-center" src="../../getdata.png" style="width: 800px;" />
+</a>
+<ul class="simple">
+<li><p>Kemudian pilih, <strong>PostGreSQL</strong></p></li>
+<li><p>Masukkan nama <strong>Server</strong> dan <strong>Database</strong> yang sudah dibuat sebelumnya</p></li>
+<li><p>Kemudian pilih nama tabel yang sudah dibuat <strong>healthcare_data</strong></p></li>
+<li><p>Hasilnya akan seperti gambar di bawah</p></li>
+</ul>
+<a class="mb-1 reference internal image-reference" href="../../datas.png"><img alt="data" class="mb-1 align-center" src="../../datas.png" style="width: 300px;" />
+</a>
 </section>
 <div class="toctree-wrapper compound">
 </div>
@@ -516,10 +547,9 @@ You can learn a lot more at <a class="reference external" href="https://jupyterb
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-myst">What is MyST?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-roles-and-directives">Sample Roles and Directives</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#citations">Citations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learn-more">Learn more</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deskripsi-dataset">1. Deskripsi Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-dataset">2. Load Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#connect-ke-power-bi">3. Connect ke Power BI</a></li>
 </ul>
   </nav></div>
 
