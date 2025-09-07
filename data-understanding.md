@@ -73,7 +73,7 @@ ALTER COLUMN Billing_Amount TYPE NUMERIC USING Billing_Amount::NUMERIC;
 
 - Pergi ke menu **Home**, dan pilih **Get Data**
 
-```{image} ../../getdata.png
+```{image} _images/getdata.png
 :alt: getdata
 :class: mb-1
 :width: 800px
@@ -84,7 +84,7 @@ ALTER COLUMN Billing_Amount TYPE NUMERIC USING Billing_Amount::NUMERIC;
 - Masukkan nama **Server** dan **Database** yang sudah dibuat sebelumnya
 - Kemudian pilih nama tabel yang sudah dibuat **healthcare_data**
 - Hasilnya akan seperti gambar di bawah
-```{image} /_images/datas.png
+```{image} _images/datas.png
 :alt: data
 :class: mb-1
 :width: 300px
