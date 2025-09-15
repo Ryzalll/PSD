@@ -8,6 +8,8 @@ chapters:
 - file : data-understanding
   sections:
   - file : explorasi-data
+- file : data-preprocessing
+  sections:
   - file : outlier-detection
 
 # - file : eksplorasi-data
