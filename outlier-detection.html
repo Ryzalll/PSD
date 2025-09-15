@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Notebooks with MyST Markdown &#8212; Proyek Sains Data</title>
+    <title>outlier-detection &#8212; Proyek Sains Data</title>
   
   
   
@@ -57,9 +57,10 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'markdown-notebooks';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'outlier-detection';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Explorasi Data" href="explorasi-data.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -122,8 +123,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -179,11 +178,11 @@
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="memahami-bisnis.html">Memahami Bisnis</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="data-understanding.html">Data Understanding</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="data-understanding.html">Data Understanding</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="explorasi-data.html">Explorasi Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="outlier-detection.html">outlier-detection</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">outlier-detection</a></li>
 </ul>
 </details></li>
 </ul>
@@ -257,7 +256,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmarkdown-notebooks.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Foutlier-detection.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -287,7 +286,7 @@
       
       
       
-      <li><a href="_sources/markdown-notebooks.md" target="_blank"
+      <li><a href="_sources/outlier-detection.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -297,7 +296,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.md</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
 </li>
       
@@ -358,9 +357,7 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</button>
+
 </div></div>
       
     </div>
@@ -371,21 +368,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Notebooks with MyST Markdown</h1>
+    <h1>outlier-detection</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example-cell">An example cell</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-notebook-with-myst-markdown">Create a notebook with MyST Markdown</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quickly-add-yaml-metadata-for-myst-notebooks">Quickly add YAML metadata for MyST Notebooks</a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -395,51 +382,170 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="notebooks-with-myst-markdown">
-<h1>Notebooks with MyST Markdown<a class="headerlink" href="#notebooks-with-myst-markdown" title="Link to this heading">#</a></h1>
-<p>Jupyter Book also lets you write text-based notebooks using MyST Markdown.
-See <a class="reference external" href="https://jupyterbook.org/file-types/myst-notebooks.html">the Notebooks with MyST Markdown documentation</a> for more detailed instructions.
-This page shows off a notebook written in MyST Markdown.</p>
-<section id="an-example-cell">
-<h2>An example cell<a class="headerlink" href="#an-example-cell" title="Link to this heading">#</a></h2>
-<p>With MyST Markdown, you can define code cells with a directive like so:</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="outlier-detection">
+<h1>outlier-detection<a class="headerlink" href="#outlier-detection" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
 </pre></div>
 </div>
 </div>
 </div>
-<p>When your book is built, the contents of any <code class="docutils literal notranslate"><span class="pre">{code-cell}</span></code> blocks will be
-executed with your default Jupyter kernel, and their outputs will be displayed
-in-line with the rest of your content.</p>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<p>Jupyter Book uses <a class="reference external" href="https://jupytext.readthedocs.io/en/latest/">Jupytext</a> to convert text-based files to notebooks, and can support <a class="reference external" href="https://jupyterbook.org/file-types/jupytext.html">many other text-based notebook files</a>.</p>
-</div>
-</section>
-<section id="create-a-notebook-with-myst-markdown">
-<h2>Create a notebook with MyST Markdown<a class="headerlink" href="#create-a-notebook-with-myst-markdown" title="Link to this heading">#</a></h2>
-<p>MyST Markdown notebooks are defined by two things:</p>
-<ol class="arabic simple">
-<li><p>YAML metadata that is needed to understand if / how it should convert text files to notebooks (including information about the kernel needed).
-See the YAML at the top of this page for example.</p></li>
-<li><p>The presence of <code class="docutils literal notranslate"><span class="pre">{code-cell}</span></code> directives, which will be executed with your book.</p></li>
-</ol>
-<p>That’s all that is needed to get started!</p>
-</section>
-<section id="quickly-add-yaml-metadata-for-myst-notebooks">
-<h2>Quickly add YAML metadata for MyST Notebooks<a class="headerlink" href="#quickly-add-yaml-metadata-for-myst-notebooks" title="Link to this heading">#</a></h2>
-<p>If you have a markdown file and you’d like to quickly add YAML metadata to it, so that Jupyter Book will treat it as a MyST Markdown Notebook, run the following command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span><span class="o">-</span><span class="n">book</span> <span class="n">myst</span> <span class="n">init</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">markdownfile</span><span class="o">.</span><span class="n">md</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pycaret.anomaly</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../../Dataset/iris-full.csv&#39;</span><span class="p">)</span>
+
+<span class="n">exp_name</span> <span class="o">=</span> <span class="n">setup</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="p">)</span>
+<span class="n">abod</span> <span class="o">=</span> <span class="n">create_model</span><span class="p">(</span><span class="s1">&#39;abod&#39;</span><span class="p">)</span>
+<span class="n">plot_model</span><span class="p">(</span><span class="n">abod</span><span class="p">,</span> <span class="n">plot</span> <span class="o">=</span> <span class="s1">&#39;tsne&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+#T_9e8c4_row5_col1 {
+  background-color: lightgreen;
+}
+</style>
+<table id="T_9e8c4">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_9e8c4_level0_col0" class="col_heading level0 col0" >Description</th>
+      <th id="T_9e8c4_level0_col1" class="col_heading level0 col1" >Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_9e8c4_level0_row0" class="row_heading level0 row0" >0</th>
+      <td id="T_9e8c4_row0_col0" class="data row0 col0" >Session id</td>
+      <td id="T_9e8c4_row0_col1" class="data row0 col1" >5234</td>
+    </tr>
+    <tr>
+      <th id="T_9e8c4_level0_row1" class="row_heading level0 row1" >1</th>
+      <td id="T_9e8c4_row1_col0" class="data row1 col0" >Original data shape</td>
+      <td id="T_9e8c4_row1_col1" class="data row1 col1" >(150, 6)</td>
+    </tr>
+    <tr>
+      <th id="T_9e8c4_level0_row2" class="row_heading level0 row2" >2</th>
+      <td id="T_9e8c4_row2_col0" class="data row2 col0" >Transformed data shape</td>
+      <td id="T_9e8c4_row2_col1" class="data row2 col1" >(150, 8)</td>
+    </tr>
+    <tr>
+      <th id="T_9e8c4_level0_row3" class="row_heading level0 row3" >3</th>
+      <td id="T_9e8c4_row3_col0" class="data row3 col0" >Numeric features</td>
+      <td id="T_9e8c4_row3_col1" class="data row3 col1" >5</td>
+    </tr>
+    <tr>
+      <th id="T_9e8c4_level0_row4" class="row_heading level0 row4" >4</th>
+      <td id="T_9e8c4_row4_col0" class="data row4 col0" >Categorical features</td>
+      <td id="T_9e8c4_row4_col1" class="data row4 col1" >1</td>
+    </tr>
+    <tr>
+      <th id="T_9e8c4_level0_row5" class="row_heading level0 row5" >5</th>
+      <td id="T_9e8c4_row5_col0" class="data row5 col0" >Preprocess</td>
+      <td id="T_9e8c4_row5_col1" class="data row5 col1" >True</td>
+    </tr>
+    <tr>
+      <th id="T_9e8c4_level0_row6" class="row_heading level0 row6" >6</th>
+      <td id="T_9e8c4_row6_col0" class="data row6 col0" >Imputation type</td>
+      <td id="T_9e8c4_row6_col1" class="data row6 col1" >simple</td>
+    </tr>
+    <tr>
+      <th id="T_9e8c4_level0_row7" class="row_heading level0 row7" >7</th>
+      <td id="T_9e8c4_row7_col0" class="data row7 col0" >Numeric imputation</td>
+      <td id="T_9e8c4_row7_col1" class="data row7 col1" >mean</td>
+    </tr>
+    <tr>
+      <th id="T_9e8c4_level0_row8" class="row_heading level0 row8" >8</th>
+      <td id="T_9e8c4_row8_col0" class="data row8 col0" >Categorical imputation</td>
+      <td id="T_9e8c4_row8_col1" class="data row8 col1" >mode</td>
+    </tr>
+    <tr>
+      <th id="T_9e8c4_level0_row9" class="row_heading level0 row9" >9</th>
+      <td id="T_9e8c4_row9_col0" class="data row9 col0" >Maximum one-hot encoding</td>
+      <td id="T_9e8c4_row9_col1" class="data row9 col1" >-1</td>
+    </tr>
+    <tr>
+      <th id="T_9e8c4_level0_row10" class="row_heading level0 row10" >10</th>
+      <td id="T_9e8c4_row10_col0" class="data row10 col0" >Encoding method</td>
+      <td id="T_9e8c4_row10_col1" class="data row10 col1" >None</td>
+    </tr>
+    <tr>
+      <th id="T_9e8c4_level0_row11" class="row_heading level0 row11" >11</th>
+      <td id="T_9e8c4_row11_col0" class="data row11 col0" >CPU Jobs</td>
+      <td id="T_9e8c4_row11_col1" class="data row11 col1" >-1</td>
+    </tr>
+    <tr>
+      <th id="T_9e8c4_level0_row12" class="row_heading level0 row12" >12</th>
+      <td id="T_9e8c4_row12_col0" class="data row12 col0" >Use GPU</td>
+      <td id="T_9e8c4_row12_col1" class="data row12 col1" >False</td>
+    </tr>
+    <tr>
+      <th id="T_9e8c4_level0_row13" class="row_heading level0 row13" >13</th>
+      <td id="T_9e8c4_row13_col0" class="data row13 col0" >Log Experiment</td>
+      <td id="T_9e8c4_row13_col1" class="data row13 col1" >False</td>
+    </tr>
+    <tr>
+      <th id="T_9e8c4_level0_row14" class="row_heading level0 row14" >14</th>
+      <td id="T_9e8c4_row14_col0" class="data row14 col0" >Experiment Name</td>
+      <td id="T_9e8c4_row14_col1" class="data row14 col1" >anomaly-default-name</td>
+    </tr>
+    <tr>
+      <th id="T_9e8c4_level0_row15" class="row_heading level0 row15" >15</th>
+      <td id="T_9e8c4_row15_col0" class="data row15 col0" >USI</td>
+      <td id="T_9e8c4_row15_col1" class="data row15 col1" >0005</td>
+    </tr>
+  </tbody>
+</table>
+</div><div class="output text_html"></div><div class="output text_html"></div><div class="output text_html"></div><div class="output text_html"></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign model -&gt; hasilkan dataframe dengan kolom anomaly</span>
+<span class="n">df_anomaly</span> <span class="o">=</span> <span class="n">assign_model</span><span class="p">(</span><span class="n">abod</span><span class="p">)</span>
+
+<span class="c1"># Tampilkan hasil</span>
+<span class="n">df_sorted</span> <span class="o">=</span> <span class="n">df_anomaly</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;Anomaly_Score&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># df_sorted.head()</span>
+
+<span class="n">df_removed</span> <span class="o">=</span> <span class="n">df_sorted</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">df_removed</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;id&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">dataset</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+
+<span class="n">dataset</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 148 entries, 0 to 147
+Data columns (total 8 columns):
+ #   Column         Non-Null Count  Dtype   
+---  ------         --------------  -----   
+ 0   id             148 non-null    int32   
+ 1   Class          148 non-null    category
+ 2   sepal length   148 non-null    float32 
+ 3   sepal width    148 non-null    float32 
+ 4   petal length   148 non-null    float32 
+ 5   petal width    148 non-null    float32 
+ 6   Anomaly        148 non-null    int32   
+ 7   Anomaly_Score  148 non-null    float64 
+dtypes: category(1), float32(4), float64(1), int32(2)
+memory usage: 5.0 KB
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -472,29 +578,21 @@ See the YAML at the top of this page for example.</p></li>
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="explorasi-data.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Explorasi Data</p>
+      </div>
+    </a>
 </div>
                 </footer>
               
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example-cell">An example cell</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-notebook-with-myst-markdown">Create a notebook with MyST Markdown</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quickly-add-yaml-metadata-for-myst-notebooks">Quickly add YAML metadata for MyST Notebooks</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>
