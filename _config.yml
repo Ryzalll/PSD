@@ -9,7 +9,7 @@ logo: fotoku2.jpg
 # See https://jupyterbook.org/content/execute.html
 execute:
   execute_notebooks: auto
-  kernel_name : PythonE
+  kernel_name : PythonPSD
 
 # Define the name of the latex output file for PDF builds
 latex:
