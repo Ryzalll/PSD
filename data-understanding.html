@@ -61,7 +61,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Explorasi Data" href="explorasi-data.html" />
-    <link rel="prev" title="Memahami Bisnis" href="memahami-bisnis.html" />
+    <link rel="prev" title="Memahami Bisnis - Dataset Iris" href="memahami-bisnis.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -180,7 +180,7 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="memahami-bisnis.html">Memahami Bisnis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="memahami-bisnis.html">Memahami Bisnis - Dataset Iris</a></li>
 <li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Data Understanding</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="explorasi-data.html">Explorasi Data</a></li>
 </ul>
@@ -385,8 +385,19 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deskripsi-dataset">1. Deskripsi Dataset</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-dataset">2. Load Dataset</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#connect-ke-power-bi">3. Connect ke Power BI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-dataset">2. Load Dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tambahkan-data">2.1 Tambahkan data</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#import-data-lewat-postgresql">2.1.1 Import data lewat PostGreSQL</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#import-data-lewat-mysql">2.1.2 Import data lewat MySQL</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">2.2 Load Dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dengan-power-bi">2.2.1 Dengan Power BI</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dengan-vs-code">2.2.1 Dengan VS Code</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -402,86 +413,191 @@ document.write(`
 <h1>Data Understanding<a class="headerlink" href="#data-understanding" title="Link to this heading">#</a></h1>
 <section id="deskripsi-dataset">
 <h2>1. Deskripsi Dataset<a class="headerlink" href="#deskripsi-dataset" title="Link to this heading">#</a></h2>
-<p>Dataset yang digunakan adalah “Healthcare Dataset” yang bersumber dari Kaggle. Dataset ini terdiri dari 10.000 baris dan 15 kolom.</p>
+<p>Data Understanding atau yang biasa disebut dengan Memahami Data adalah salah satu tahap penting dalam proses Knowledge Discovery in Databases (KDD) atau Data Sains. Ini merupakan langkah awal yang bertujuan untuk memahami data secara mendalam sebelum melakukan analisis lebih lanjut. Pemahaman data yang baik sangat krusial karena akan memengaruhi keberhasilan seluruh proses data mining.</p>
 <p><strong>Kolom-kolom utama meliputi:</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Name</span></code>: Nama pasien</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Age</span></code>: Usia pasien</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Gender</span></code>: Jenis kelamin</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Medical</span> <span class="pre">Condition</span></code>: Kondisi medis utama</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Date</span> <span class="pre">of</span> <span class="pre">Admission</span></code>: Tanggal masuk rumah sakit</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Billing</span> <span class="pre">Amount</span></code>: Jumlah tagihan (dalam format notasi ilmiah dengan pemisah koma)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Admission</span> <span class="pre">Type</span></code>: Jenis admisi (misalnya, ‘Urgent’, ‘Emergency’, ‘Elective’)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Medication</span></code>: Obat yang diberikan</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Test</span> <span class="pre">Results</span></code>: Hasil tes medis</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sepal_length</span></code> → Decimal Number (cm)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sepal_width</span></code> → Decimal Number (cm)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">petal_length</span></code> → Decimal Number (cm)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">petal_width</span></code> → Decimal Number (cm)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">species</span></code> → Text (kategori: setosa, versicolor, virginica)</p></li>
 </ul>
 </section>
 <hr class="docutils" />
 <section id="load-dataset">
 <h2>2. Load Dataset<a class="headerlink" href="#load-dataset" title="Link to this heading">#</a></h2>
-<p>Dataset yang digunakan akan diload ke PostGreSQL, tahapan seperti berikut :</p>
+<p>Pertama-tama pastikan data sudah siap ada di power BI</p>
+<section id="tambahkan-data">
+<h3>2.1 Tambahkan data<a class="headerlink" href="#tambahkan-data" title="Link to this heading">#</a></h3>
+<section id="import-data-lewat-postgresql">
+<h4>2.1.1 Import data lewat PostGreSQL<a class="headerlink" href="#import-data-lewat-postgresql" title="Link to this heading">#</a></h4>
 <ul class="simple">
 <li><p><strong>Pahami Tipe Data yang ada</strong> Memahami tipe data pada setiap kolom untuk melakukan tahapan import dataset ke postgreSQL.
 Setelah mengamati dataset yang ada, coba untuk membuat tabel baru di dataset yang ada di PostGreSQL.
 dengan syntax seperti berikut :</p></li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">CREATE</span> <span class="n">TABLE</span> <span class="n">healthcare_data</span> <span class="p">(</span>
-    <span class="n">Name</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
-    <span class="n">Age</span> <span class="n">INTEGER</span><span class="p">,</span>
-    <span class="n">Gender</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span>
-    <span class="n">Blood_Type</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
-    <span class="n">Medical_Condition</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
-    <span class="n">Date_of_Admission</span> <span class="n">DATE</span><span class="p">,</span>
-    <span class="n">Doctor</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
-    <span class="n">Hospital</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
-    <span class="n">Insurance_Provider</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
-    <span class="n">Billing_Amount</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span> <span class="o">--</span> <span class="n">Diubah</span> <span class="n">sementara</span> <span class="n">menjadi</span> <span class="n">teks</span>
-    <span class="n">Room_Number</span> <span class="n">INTEGER</span><span class="p">,</span>
-    <span class="n">Admission_Type</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span>
-    <span class="n">Discharge_Date</span> <span class="n">DATE</span><span class="p">,</span>
-    <span class="n">Medication</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
-    <span class="n">Test_Results</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">CREATE</span> <span class="n">TABLE</span> <span class="n">iris_dataset</span> <span class="p">(</span>
+    <span class="nb">id</span> <span class="n">SERIAL</span> <span class="n">PRIMARY</span> <span class="n">KEY</span><span class="p">,</span>
+    <span class="n">species</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span>
+    <span class="n">sepal_length</span> <span class="n">NUMERIC</span><span class="p">,</span>
+    <span class="n">sepal_width</span> <span class="n">NUMERIC</span><span class="p">,</span>
+    <span class="n">petal_length</span> <span class="n">NUMERIC</span><span class="p">,</span>
+    <span class="n">petal_width</span> <span class="n">NUMERIC</span>
 <span class="p">);</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p>Lakukan proses impor melalui pgAdmin:</p></li>
-<li><p>Klik kanan pada tabel <strong>healthcare_data</strong> yang baru.</p></li>
-<li><p>Pilih Import/Export….</p></li>
-<li><p>Pastikan toggle pada Import.</p></li>
-<li><p>Pilih file <strong>healthcare_dataset.csv</strong>.</p></li>
-<li><p>Di tab Options, pastikan Header dicentang dan Delimiter adalah ; (semicolon).</p></li>
-<li><p><strong>Mengoptimalisasikan tipe data kolom:</strong></p>
-<ul>
-<li><p>Ganti semua koma (,) menjadi titik (.) di kolom Billing_Amount.</p></li>
-<li><p>Ubah tipe data kolom Billing_Amount menjadi NUMERIC.</p></li>
-</ul>
-</li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">UPDATE</span> <span class="n">healthcare_data</span>
-<span class="n">SET</span> <span class="n">Billing_Amount</span> <span class="o">=</span> <span class="n">REPLACE</span><span class="p">(</span><span class="n">Billing_Amount</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">);</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ALTER</span> <span class="n">TABLE</span> <span class="n">healthcare_data</span>
-<span class="n">ALTER</span> <span class="n">COLUMN</span> <span class="n">Billing_Amount</span> <span class="n">TYPE</span> <span class="n">NUMERIC</span> <span class="n">USING</span> <span class="n">Billing_Amount</span><span class="p">::</span><span class="n">NUMERIC</span><span class="p">;</span>
+<p>Kemudian tambahkan code SQL berikut :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">COPY</span> <span class="n">public</span><span class="o">.</span><span class="n">iris_dataset</span><span class="p">(</span><span class="n">species</span><span class="p">,</span> <span class="n">sepal_length</span><span class="p">,</span> <span class="n">sepal_width</span><span class="p">,</span> <span class="n">petal_length</span><span class="p">,</span> <span class="n">petal_width</span><span class="p">)</span> 
+    <span class="n">FROM</span> <span class="s1">&#39;D:/Kuliah/Matkul/SMT 5/PSD/Dataset/iris-full.csv&#39;</span> 
+    <span class="n">WITH</span> <span class="p">(</span><span class="n">FORMAT</span> <span class="n">csv</span><span class="p">,</span> <span class="n">DELIMITER</span> <span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">HEADER</span><span class="p">,</span> <span class="n">QUOTE</span> <span class="s1">&#39;&quot;&#39;</span><span class="p">,</span> <span class="n">ESCAPE</span> <span class="s1">&#39;&quot;&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
-<section id="connect-ke-power-bi">
-<h2>3. Connect ke Power BI<a class="headerlink" href="#connect-ke-power-bi" title="Link to this heading">#</a></h2>
+<section id="import-data-lewat-mysql">
+<h4>2.1.2 Import data lewat MySQL<a class="headerlink" href="#import-data-lewat-mysql" title="Link to this heading">#</a></h4>
 <ul class="simple">
-<li><p>Pergi ke menu <strong>Home</strong>, dan pilih <strong>Get Data</strong></p></li>
+<li><p>Import dataset dengan format .csv ke dalam phpMyAdmin</p></li>
+<li><p>Pilih file format “.csv” kemudian centang Baris pertama adalah header</p></li>
+<li><p>Kemudian, Import</p></li>
 </ul>
-<a class="mb-1 reference internal image-reference" href="_images/getdata.png"><img alt="getdata" class="mb-1 align-center" src="_images/getdata.png" style="width: 800px;" />
-</a>
+</section>
+</section>
+<section id="id1">
+<h3>2.2 Load Dataset<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<section id="dengan-power-bi">
+<h4>2.2.1 Dengan Power BI<a class="headerlink" href="#dengan-power-bi" title="Link to this heading">#</a></h4>
+<ul>
+<li><p>Buka Power BI</p></li>
+<li><p>Pilih Get Data</p></li>
+<li><p>Pilih python script</p>
+<p>Kemudian masukkan code berikut untuk mengambil dataset yang ada di PostgreSQL dan MySQL</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Kolom <strong>id</strong>, <strong>species</strong>, <strong>sepal_length</strong> berasal dari dataset MySQL, sedangkan untuk</p>
+<p>Kolom <strong>sepal_width</strong>, <strong>petal_length</strong>, <strong>petal_width</strong> berasal dari dataset PostGreSQL</p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mysql.connector</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">psycopg2</span>
+
+<span class="n">conn</span> <span class="o">=</span> <span class="n">mysql</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+    <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;root&quot;</span><span class="p">,</span>
+    <span class="n">password</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">database</span><span class="o">=</span><span class="s2">&quot;psd_dataset&quot;</span><span class="p">,</span>
+    <span class="n">port</span><span class="o">=</span><span class="mi">3306</span>
+<span class="p">)</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">SELECT </span>
+<span class="s2">    id,</span>
+<span class="s2">    Class AS species,</span>
+<span class="s2">    `sepal length`  AS sepal_length,</span>
+<span class="s2">    `sepal width`   AS sepal_width,</span>
+<span class="s2">    `petal length`  AS petal_length,</span>
+<span class="s2">    `petal width`   AS petal_width</span>
+<span class="s2">FROM iris_full</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">my_df_mysql</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="n">conn</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+    <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;postgres&quot;</span><span class="p">,</span>
+    <span class="n">password</span><span class="o">=</span><span class="s2">&quot;1234&quot;</span><span class="p">,</span>
+    <span class="n">database</span><span class="o">=</span><span class="s2">&quot;psd_dataset&quot;</span><span class="p">,</span>
+    <span class="n">port</span><span class="o">=</span><span class="mi">5432</span>
+<span class="p">)</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">SELECT </span>
+<span class="s2">    id,</span>
+<span class="s2">    species,</span>
+<span class="s2">    sepal_length,</span>
+<span class="s2">    sepal_width,</span>
+<span class="s2">    petal_length,</span>
+<span class="s2">    petal_width</span>
+<span class="s2">FROM public.iris_dataset</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">pg_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span>
+
+
+<span class="n">kolom_mysql</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span><span class="s2">&quot;species&quot;</span><span class="p">,</span><span class="s2">&quot;sepal_length&quot;</span><span class="p">]</span>
+
+<span class="n">kolom_pgsql</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">pg_df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kolom_mysql</span><span class="p">]</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">my_df_mysql</span><span class="p">[</span><span class="n">kolom_mysql</span><span class="p">],</span> <span class="n">pg_df</span><span class="p">[</span><span class="n">kolom_pgsql</span><span class="p">]],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="dengan-vs-code">
+<h4>2.2.1 Dengan VS Code<a class="headerlink" href="#dengan-vs-code" title="Link to this heading">#</a></h4>
 <ul class="simple">
-<li><p>Kemudian pilih, <strong>PostGreSQL</strong></p></li>
-<li><p>Masukkan nama <strong>Server</strong> dan <strong>Database</strong> yang sudah dibuat sebelumnya</p></li>
-<li><p>Kemudian pilih nama tabel yang sudah dibuat <strong>healthcare_data</strong></p></li>
-<li><p>Hasilnya akan seperti gambar di bawah</p></li>
+<li><p>Buat file dengan nama <strong>connection.ipynb</strong></p></li>
+<li><p>Tuliskan code berikut untuk menambahkan dataset ke vscode</p></li>
 </ul>
-<a class="mb-1 reference internal image-reference" href="_images/datas.png"><img alt="data" class="mb-1 align-center" src="_images/datas.png" style="width: 300px;" />
-</a>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mysql.connector</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">psycopg2</span>
+
+<span class="n">conn</span> <span class="o">=</span> <span class="n">mysql</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+    <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;root&quot;</span><span class="p">,</span>
+    <span class="n">password</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">database</span><span class="o">=</span><span class="s2">&quot;psd_dataset&quot;</span><span class="p">,</span>
+    <span class="n">port</span><span class="o">=</span><span class="mi">3306</span>
+<span class="p">)</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">SELECT </span>
+<span class="s2">    id,</span>
+<span class="s2">    Class AS species,</span>
+<span class="s2">    `sepal length`  AS sepal_length,</span>
+<span class="s2">    `sepal width`   AS sepal_width,</span>
+<span class="s2">    `petal length`  AS petal_length,</span>
+<span class="s2">    `petal width`   AS petal_width</span>
+<span class="s2">FROM iris_full</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">my_df_mysql</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="n">conn</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+    <span class="n">host</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;postgres&quot;</span><span class="p">,</span>
+    <span class="n">password</span><span class="o">=</span><span class="s2">&quot;1234&quot;</span><span class="p">,</span>
+    <span class="n">database</span><span class="o">=</span><span class="s2">&quot;psd_dataset&quot;</span><span class="p">,</span>
+    <span class="n">port</span><span class="o">=</span><span class="mi">5432</span>
+<span class="p">)</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">SELECT </span>
+<span class="s2">    id,</span>
+<span class="s2">    species,</span>
+<span class="s2">    sepal_length,</span>
+<span class="s2">    sepal_width,</span>
+<span class="s2">    petal_length,</span>
+<span class="s2">    petal_width</span>
+<span class="s2">FROM public.iris_dataset</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">pg_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span>
+
+
+<span class="n">kolom_mysql</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span><span class="s2">&quot;species&quot;</span><span class="p">,</span><span class="s2">&quot;sepal_length&quot;</span><span class="p">]</span>
+
+<span class="n">kolom_pgsql</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">pg_df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kolom_mysql</span><span class="p">]</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">my_df_mysql</span><span class="p">[</span><span class="n">kolom_mysql</span><span class="p">],</span> <span class="n">pg_df</span><span class="p">[</span><span class="n">kolom_pgsql</span><span class="p">]],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Data yang diperoleh ditampung dalam variabel dataframe dengan nama <strong>dataset</strong></p>
+</section>
+</section>
 </section>
 <div class="toctree-wrapper compound">
 </div>
@@ -523,7 +639,7 @@ dengan syntax seperti berikut :</p></li>
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Memahami Bisnis</p>
+        <p class="prev-next-title">Memahami Bisnis - Dataset Iris</p>
       </div>
     </a>
     <a class="right-next"
@@ -552,8 +668,19 @@ dengan syntax seperti berikut :</p></li>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deskripsi-dataset">1. Deskripsi Dataset</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-dataset">2. Load Dataset</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#connect-ke-power-bi">3. Connect ke Power BI</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-dataset">2. Load Dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tambahkan-data">2.1 Tambahkan data</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#import-data-lewat-postgresql">2.1.1 Import data lewat PostGreSQL</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#import-data-lewat-mysql">2.1.2 Import data lewat MySQL</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">2.2 Load Dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dengan-power-bi">2.2.1 Dengan Power BI</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dengan-vs-code">2.2.1 Dengan VS Code</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

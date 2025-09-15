@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Memahami Bisnis &#8212; Proyek Sains Data</title>
+    <title>Memahami Bisnis - Dataset Iris &#8212; Proyek Sains Data</title>
   
   
   
@@ -180,10 +180,13 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Memahami Bisnis</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Memahami Bisnis - Dataset Iris</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="data-understanding.html">Data Understanding</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="explorasi-data.html">Explorasi Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="outlier-detection.html">outlier-detection</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="data-preprocessing.html">Data Pre processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="outlier-detection.html">Deteksi Outlier</a></li>
 </ul>
 </details></li>
 </ul>
@@ -371,7 +374,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Memahami Bisnis</h1>
+    <h1>Memahami Bisnis - Dataset Iris</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -381,12 +384,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latar-belakang-proyek-business-understanding">1. Latar Belakang Proyek (Business Understanding)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tujuan-proyek">2. Tujuan Proyek</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tujuan-bisnis">2.1. Tujuan Bisnis</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tujuan-teknis-data-mining">2.2. Tujuan Teknis (Data Mining)</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tujuan-bisnis">Tujuan Bisnis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#permasalahan-bisnis">Permasalahan Bisnis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tujuan-analitik">Tujuan Analitik</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#manfaat-bisnis">Manfaat Bisnis</a></li>
 </ul>
             </nav>
         </div>
@@ -398,33 +399,40 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="memahami-bisnis">
-<h1>Memahami Bisnis<a class="headerlink" href="#memahami-bisnis" title="Link to this heading">#</a></h1>
-<section id="latar-belakang-proyek-business-understanding">
-<h2>1. Latar Belakang Proyek (Business Understanding)<a class="headerlink" href="#latar-belakang-proyek-business-understanding" title="Link to this heading">#</a></h2>
-<p>Industri pelayanan kesehatan dihadapkan pada tantangan berkelanjutan untuk mengoptimalkan sumber daya, meningkatkan kualitas perawatan pasien, dan mengelola biaya operasional secara efektif. Rumah sakit dan penyedia asuransi kesehatan adalah pemangku kepentingan utama yang perlu membuat keputusan berbasis data untuk mencapai tujuan tersebut.</p>
-<p>Dataset ini, yang berisi rekaman sintetis data pasien, memberikan kesempatan untuk menggali wawasan mendalam mengenai faktor-faktor yang memengaruhi hasil perawatan dan biaya. Analisis terhadap data ini diharapkan dapat membantu manajemen rumah sakit dalam membuat perencanaan yang lebih baik dan strategi yang lebih efisien.</p>
-</section>
-<hr class="docutils" />
-<section id="tujuan-proyek">
-<h2>2. Tujuan Proyek<a class="headerlink" href="#tujuan-proyek" title="Link to this heading">#</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="memahami-bisnis-dataset-iris">
+<h1>Memahami Bisnis - Dataset Iris<a class="headerlink" href="#memahami-bisnis-dataset-iris" title="Link to this heading">#</a></h1>
 <section id="tujuan-bisnis">
-<h3>2.1. Tujuan Bisnis<a class="headerlink" href="#tujuan-bisnis" title="Link to this heading">#</a></h3>
+<h2>Tujuan Bisnis<a class="headerlink" href="#tujuan-bisnis" title="Link to this heading">#</a></h2>
+<p>Perusahaan florikultura ingin mengklasifikasikan jenis bunga iris berdasarkan ukuran kelopak (petal) dan sepal (sepal).
+Tujuan utamanya:</p>
 <ul class="simple">
-<li><p><strong>Mengidentifikasi Pendorong Utama Biaya Perawatan:</strong> Memahami variabel (seperti kondisi medis, tipe admisi) yang paling signifikan memengaruhi tagihan pasien.</p></li>
-<li><p><strong>Optimalisasi Alokasi Sumber Daya:</strong> Memprediksi durasi rawat inap untuk meningkatkan manajemen kapasitas tempat tidur dan penjadwalan staf medis.</p></li>
-<li><p><strong>Segmentasi Pasien:</strong> Mengelompokkan pasien berdasarkan profil risiko atau kebutuhan perawatan untuk memberikan layanan yang lebih terfokus.</p></li>
+<li><p>Mempercepat proses identifikasi spesies</p></li>
+<li><p>Mengurangi kesalahan manusia</p></li>
+<li><p>Menyediakan data dasar untuk penelitian dan pengembangan varietas baru</p></li>
 </ul>
 </section>
-<section id="tujuan-teknis-data-mining">
-<h3>2.2. Tujuan Teknis (Data Mining)<a class="headerlink" href="#tujuan-teknis-data-mining" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p><strong>Model Regresi:</strong> Membangun model machine learning untuk memprediksi <code class="docutils literal notranslate"><span class="pre">Billing</span> <span class="pre">Amount</span></code>.</p></li>
-<li><p><strong>Model Klasifikasi:</strong> Mengembangkan model untuk memprediksi <code class="docutils literal notranslate"><span class="pre">Test</span> <span class="pre">Results</span></code> (misalnya, ‘Normal’, ‘Abnormal’, ‘Inconclusive’).</p></li>
-<li><p><strong>Analisis Deskriptif:</strong> Melakukan <em>Exploratory Data Analysis (EDA)</em> untuk menemukan pola dan korelasi tersembunyi dalam data.</p></li>
-</ul>
 <hr class="docutils" />
+<section id="permasalahan-bisnis">
+<h2>Permasalahan Bisnis<a class="headerlink" href="#permasalahan-bisnis" title="Link to this heading">#</a></h2>
+<p>Bagaimana membedakan spesies iris (Setosa, Versicolor, Virginica) hanya berdasarkan data panjang &amp; lebar sepal serta petal?</p>
 </section>
+<hr class="docutils" />
+<section id="tujuan-analitik">
+<h2>Tujuan Analitik<a class="headerlink" href="#tujuan-analitik" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Menganalisis karakteristik distribusi data sepal &amp; petal</p></li>
+<li><p>Menentukan fitur yang paling membedakan antar spesies</p></li>
+<li><p>Membangun model klasifikasi yang dapat memprediksi spesies bunga iris</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="manfaat-bisnis">
+<h2>Manfaat Bisnis<a class="headerlink" href="#manfaat-bisnis" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Efisiensi</strong>: Proses identifikasi bunga menjadi lebih cepat</p></li>
+<li><p><strong>Akurasi</strong>: Mengurangi kesalahan klasifikasi manual</p></li>
+<li><p><strong>Skalabilitas</strong>: Dapat diperluas ke dataset tanaman lain atau objek biologis lain</p></li>
+</ul>
 </section>
 </section>
 
@@ -492,12 +500,10 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latar-belakang-proyek-business-understanding">1. Latar Belakang Proyek (Business Understanding)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tujuan-proyek">2. Tujuan Proyek</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tujuan-bisnis">2.1. Tujuan Bisnis</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tujuan-teknis-data-mining">2.2. Tujuan Teknis (Data Mining)</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tujuan-bisnis">Tujuan Bisnis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#permasalahan-bisnis">Permasalahan Bisnis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tujuan-analitik">Tujuan Analitik</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#manfaat-bisnis">Manfaat Bisnis</a></li>
 </ul>
   </nav></div>
 

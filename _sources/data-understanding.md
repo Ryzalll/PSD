@@ -2,91 +2,190 @@
 
 ## 1. Deskripsi Dataset
 
-Dataset yang digunakan adalah "Healthcare Dataset" yang bersumber dari Kaggle. Dataset ini terdiri dari 10.000 baris dan 15 kolom.
+Data Understanding atau yang biasa disebut dengan Memahami Data adalah salah satu tahap penting dalam proses Knowledge Discovery in Databases (KDD) atau Data Sains. Ini merupakan langkah awal yang bertujuan untuk memahami data secara mendalam sebelum melakukan analisis lebih lanjut. Pemahaman data yang baik sangat krusial karena akan memengaruhi keberhasilan seluruh proses data mining.
 
 **Kolom-kolom utama meliputi:**
-- `Name`: Nama pasien
-- `Age`: Usia pasien
-- `Gender`: Jenis kelamin
-- `Medical Condition`: Kondisi medis utama
-- `Date of Admission`: Tanggal masuk rumah sakit
-- `Billing Amount`: Jumlah tagihan (dalam format notasi ilmiah dengan pemisah koma)
-- `Admission Type`: Jenis admisi (misalnya, 'Urgent', 'Emergency', 'Elective')
-- `Medication`: Obat yang diberikan
-- `Test Results`: Hasil tes medis
+- `sepal_length` → Decimal Number (cm)
+
+- `sepal_width` → Decimal Number (cm)
+
+- `petal_length` → Decimal Number (cm)
+
+- `petal_width` → Decimal Number (cm)
+
+- `species` → Text (kategori: setosa, versicolor, virginica)
 
 ---
 
 ## 2. Load Dataset
 
-Dataset yang digunakan akan diload ke PostGreSQL, tahapan seperti berikut : 
+Pertama-tama pastikan data sudah siap ada di power BI
 
+### 2.1 Tambahkan data
+
+#### 2.1.1 Import data lewat PostGreSQL
 - **Pahami Tipe Data yang ada** Memahami tipe data pada setiap kolom untuk melakukan tahapan import dataset ke postgreSQL.
 Setelah mengamati dataset yang ada, coba untuk membuat tabel baru di dataset yang ada di PostGreSQL.
 dengan syntax seperti berikut : 
+
 ```{code}
-    CREATE TABLE healthcare_data (
-    Name VARCHAR(255),
-    Age INTEGER,
-    Gender VARCHAR(50),
-    Blood_Type VARCHAR(10),
-    Medical_Condition VARCHAR(255),
-    Date_of_Admission DATE,
-    Doctor VARCHAR(255),
-    Hospital VARCHAR(255),
-    Insurance_Provider VARCHAR(255),
-    Billing_Amount VARCHAR(255), -- Diubah sementara menjadi teks
-    Room_Number INTEGER,
-    Admission_Type VARCHAR(50),
-    Discharge_Date DATE,
-    Medication VARCHAR(255),
-    Test_Results VARCHAR(50)
+    CREATE TABLE iris_dataset (
+    id SERIAL PRIMARY KEY,
+    species VARCHAR(50),
+    sepal_length NUMERIC,
+    sepal_width NUMERIC,
+    petal_length NUMERIC,
+    petal_width NUMERIC
 );
 ```
 
-- Lakukan proses impor melalui pgAdmin:
+Kemudian tambahkan code SQL berikut : 
 
-- Klik kanan pada tabel **healthcare_data** yang baru.
-
-- Pilih Import/Export....
-
-- Pastikan toggle pada Import.
-
-- Pilih file **healthcare_dataset.csv**.
-
-- Di tab Options, pastikan Header dicentang dan Delimiter adalah ; (semicolon).
-
-
-- **Mengoptimalisasikan tipe data kolom:** 
-    - Ganti semua koma (,) menjadi titik (.) di kolom Billing_Amount.
-    - Ubah tipe data kolom Billing_Amount menjadi NUMERIC.
 ```{code}
-UPDATE healthcare_data
-SET Billing_Amount = REPLACE(Billing_Amount, ',', '.');
+    COPY public.iris_dataset(species, sepal_length, sepal_width, petal_length, petal_width) 
+    FROM 'D:/Kuliah/Matkul/SMT 5/PSD/Dataset/iris-full.csv' 
+    WITH (FORMAT csv, DELIMITER ',', HEADER, QUOTE '"', ESCAPE '"');
 ```
+
+
+#### 2.1.2 Import data lewat MySQL
+
+* Import dataset dengan format .csv ke dalam phpMyAdmin
+* Pilih file format ".csv" kemudian centang Baris pertama adalah header
+* Kemudian, Import
+
+### 2.2 Load Dataset 
+
+#### 2.2.1 Dengan Power BI
+
+* Buka Power BI 
+* Pilih Get Data
+* Pilih python script
+
+    Kemudian masukkan code berikut untuk mengambil dataset yang ada di PostgreSQL dan MySQL
+```{note}
+Kolom **id**, **species**, **sepal_length** berasal dari dataset MySQL, sedangkan untuk
+
+Kolom **sepal_width**, **petal_length**, **petal_width** berasal dari dataset PostGreSQL
+```
+
 ```{code}
-ALTER TABLE healthcare_data
-ALTER COLUMN Billing_Amount TYPE NUMERIC USING Billing_Amount::NUMERIC;
+
+import pandas as pd
+import mysql.connector
+import psycopg2
+
+conn = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="",
+    database="psd_dataset",
+    port=3306
+)
+
+query = """
+SELECT 
+    id,
+    Class AS species,
+    `sepal length`  AS sepal_length,
+    `sepal width`   AS sepal_width,
+    `petal length`  AS petal_length,
+    `petal width`   AS petal_width
+FROM iris_full
+"""
+
+my_df_mysql = pd.read_sql(query, conn)
+conn.close()
+
+conn = psycopg2.connect(
+    host="localhost",
+    user="postgres",
+    password="1234",
+    database="psd_dataset",
+    port=5432
+)
+
+query = """
+SELECT 
+    id,
+    species,
+    sepal_length,
+    sepal_width,
+    petal_length,
+    petal_width
+FROM public.iris_dataset
+"""
+
+pg_df = pd.read_sql(query, conn)
+
+
+kolom_mysql = ["id","species","sepal_length"]
+
+kolom_pgsql = [c for c in pg_df.columns if c not in kolom_mysql]
+
+dataset = pd.concat([my_df_mysql[kolom_mysql], pg_df[kolom_pgsql]], axis = 1)
 ```
 
-## 3. Connect ke Power BI
+#### 2.2.1 Dengan VS Code
 
-- Pergi ke menu **Home**, dan pilih **Get Data**
+* Buat file dengan nama **connection.ipynb**
+* Tuliskan code berikut untuk menambahkan dataset ke vscode
 
-```{image} _images/getdata.png
-:alt: getdata
-:class: mb-1
-:width: 800px
-:align: center
+```{code}
+import pandas as pd
+import mysql.connector
+import psycopg2
+
+conn = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="",
+    database="psd_dataset",
+    port=3306
+)
+
+query = """
+SELECT 
+    id,
+    Class AS species,
+    `sepal length`  AS sepal_length,
+    `sepal width`   AS sepal_width,
+    `petal length`  AS petal_length,
+    `petal width`   AS petal_width
+FROM iris_full
+"""
+
+my_df_mysql = pd.read_sql(query, conn)
+conn.close()
+
+conn = psycopg2.connect(
+    host="localhost",
+    user="postgres",
+    password="1234",
+    database="psd_dataset",
+    port=5432
+)
+
+query = """
+SELECT 
+    id,
+    species,
+    sepal_length,
+    sepal_width,
+    petal_length,
+    petal_width
+FROM public.iris_dataset
+"""
+
+pg_df = pd.read_sql(query, conn)
+
+
+kolom_mysql = ["id","species","sepal_length"]
+
+kolom_pgsql = [c for c in pg_df.columns if c not in kolom_mysql]
+
+dataset = pd.concat([my_df_mysql[kolom_mysql], pg_df[kolom_pgsql]], axis = 1)
+
 ```
 
-- Kemudian pilih, **PostGreSQL** 
-- Masukkan nama **Server** dan **Database** yang sudah dibuat sebelumnya
-- Kemudian pilih nama tabel yang sudah dibuat **healthcare_data**
-- Hasilnya akan seperti gambar di bawah
-```{image} _images/datas.png
-:alt: data
-:class: mb-1
-:width: 300px
-:align: center
-```
+Data yang diperoleh ditampung dalam variabel dataframe dengan nama **dataset**
