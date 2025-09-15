@@ -8,6 +8,7 @@ chapters:
 - file : data-understanding
   sections:
   - file : explorasi-data
+  - file : outlier-detection
 
 # - file : eksplorasi-data
 
