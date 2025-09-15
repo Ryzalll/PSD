@@ -180,7 +180,7 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="memahami-bisnis.html">Memahami Bisnis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="memahami-bisnis.html">Memahami Bisnis - Dataset Iris</a></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="data-understanding.html">Data Understanding</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Explorasi Data</a></li>
 </ul>
@@ -290,7 +290,7 @@
       
       
       
-      <li><a href="_sources/explorasi-data.md" target="_blank"
+      <li><a href="_sources/explorasi-data.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -300,7 +300,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.md</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
 </li>
       
@@ -384,12 +384,12 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#melihat-distribusi-dataset">1. Melihat distribusi dataset</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-distribusi-data-umur-billing-amount-dan-gender">a. Distribusi data <strong>Umur</strong> , <strong>Billing Amount</strong> dan <strong>Gender</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-distribusi-data-kategorikal-admission-type-insurance-provider-test-results">b. Distribusi data kategorikal (Admission Type, Insurance Provider, Test Results)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-distribusi-gabungan-biaya-tagihan-vs-kondisi-medis-dan-usia-vs-kondisi-medis">c. Distribusi Gabungan (Biaya Tagihan vs. Kondisi Medis dan Usia vs. Kondisi Medis )</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-sepal-length">1. Distribusi Sepal Length</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-sepal-width">2. Distribusi Sepal Width</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-petal-length">3. Distribusi Petal Length</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-petal-width">4. Distribusi Petal Width</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boxplot-sepal-petal-berdasarkan-kelas">5. Boxplot Sepal &amp; Petal Berdasarkan Kelas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#heatmap-korelasi">6. Heatmap Korelasi</a></li>
 </ul>
             </nav>
         </div>
@@ -401,25 +401,182 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="explorasi-data">
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">run</span> connection.ipynb
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\ASUS TUF\AppData\Local\Temp\ipykernel_22628\1024078359.py:24: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  my_df_mysql = pd.read_sql(query, conn)
+C:\Users\ASUS TUF\AppData\Local\Temp\ipykernel_22628\1024078359.py:46: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  pg_df = pd.read_sql(query, conn)
+</pre></div>
+</div>
+</div>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="explorasi-data">
 <h1>Explorasi Data<a class="headerlink" href="#explorasi-data" title="Link to this heading">#</a></h1>
-<section id="melihat-distribusi-dataset">
-<h2>1. Melihat distribusi dataset<a class="headerlink" href="#melihat-distribusi-dataset" title="Link to this heading">#</a></h2>
-<section id="a-distribusi-data-umur-billing-amount-dan-gender">
-<h3>a. Distribusi data <strong>Umur</strong> , <strong>Billing Amount</strong> dan <strong>Gender</strong><a class="headerlink" href="#a-distribusi-data-umur-billing-amount-dan-gender" title="Link to this heading">#</a></h3>
-<p>Umur</p>
-<img alt="_images/distribusi_umur.png" src="_images/distribusi_umur.png" />
-<p>Billing Amount</p>
-<img alt="_images/distribusi_billing_amount.png" src="_images/distribusi_billing_amount.png" />
-<p>Gender</p>
-<img alt="_images/distribusi_gender.png" src="_images/distribusi_gender.png" />
+<section id="distribusi-sepal-length">
+<h2>1. Distribusi Sepal Length<a class="headerlink" href="#distribusi-sepal-length" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;sepal_length&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;skyblue&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Distribusi Sepal Length&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Sepal Length (cm)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Frekuensi&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/b08fe7a24b55a99c7dd03e3c5d31bd52a131d06359e07f042a00f3db823eef82.png" src="_images/b08fe7a24b55a99c7dd03e3c5d31bd52a131d06359e07f042a00f3db823eef82.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Menunjukkan bagaimana panjang sepal pada 150 sampel bunga iris terdistribusi.</p></li>
+<li><p>Sebagian besar nilai berkisar antara 5 cm – 6.5 cm, dengan rata-rata sekitar 5.8 cm.</p></li>
+<li><p>Distribusi relatif mendekati normal, meski ada sedikit variasi ke sisi kanan (lebih panjang).</p></li>
+</ul>
 </section>
-<section id="b-distribusi-data-kategorikal-admission-type-insurance-provider-test-results">
-<h3>b. Distribusi data kategorikal (Admission Type, Insurance Provider, Test Results)<a class="headerlink" href="#b-distribusi-data-kategorikal-admission-type-insurance-provider-test-results" title="Link to this heading">#</a></h3>
+<section id="distribusi-sepal-width">
+<h2>2. Distribusi Sepal Width<a class="headerlink" href="#distribusi-sepal-width" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;sepal_width&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;lightgreen&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Distribusi Sepal Width&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Sepal Width (cm)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Frekuensi&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/556e577f4b95d300b59a0d7914233bcdec43338f869979d2f5af40ff184d03cc.png" src="_images/556e577f4b95d300b59a0d7914233bcdec43338f869979d2f5af40ff184d03cc.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Nilai paling sering muncul sekitar 3.0 cm, rentang total 2.0 – 4.4 cm.</p></li>
+<li><p>Distribusi agak menyebar dengan adanya beberapa sampel yang ekstrem (outlier).</p></li>
+</ul>
 </section>
-<section id="c-distribusi-gabungan-biaya-tagihan-vs-kondisi-medis-dan-usia-vs-kondisi-medis">
-<h3>c. Distribusi Gabungan (Biaya Tagihan vs. Kondisi Medis dan Usia vs. Kondisi Medis )<a class="headerlink" href="#c-distribusi-gabungan-biaya-tagihan-vs-kondisi-medis-dan-usia-vs-kondisi-medis" title="Link to this heading">#</a></h3>
+<section id="distribusi-petal-length">
+<h2>3. Distribusi Petal Length<a class="headerlink" href="#distribusi-petal-length" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;petal_length&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;salmon&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Distribusi Petal Length&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Petal Length (cm)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Frekuensi&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/80ad2bfbe084cfdd1765612f53ab7059e1737cbf99132f81ac6e9a59edf424ab.png" src="_images/80ad2bfbe084cfdd1765612f53ab7059e1737cbf99132f81ac6e9a59edf424ab.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Sangat jelas terbagi menjadi tiga kelompok sesuai spesies iris.</p></li>
+<li><p>Iris-setosa memiliki petal yang sangat pendek (sekitar 1–2 cm).</p></li>
+<li><p>Iris-versicolor menengah (4–5 cm).</p></li>
+<li><p>Iris-virginica paling panjang (5–7 cm).</p></li>
+<li><p>Histogram ini menjadi indikator kuat bahwa petal length dapat memisahkan spesies.</p></li>
+</ul>
 </section>
+<section id="distribusi-petal-width">
+<h2>4. Distribusi Petal Width<a class="headerlink" href="#distribusi-petal-width" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;petal_width&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;plum&quot;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Distribusi Petal Width&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Petal Width (cm)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Frekuensi&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/738ece7107cda03b4244d65d97f504cbbc09a05990ec9c86878f0a8111280b21.png" src="_images/738ece7107cda03b4244d65d97f504cbbc09a05990ec9c86878f0a8111280b21.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Sama seperti petal length, distribusi terlihat terkelompok.</p></li>
+<li><p>Iris-setosa memiliki petal width kecil (~0.2 cm).</p></li>
+<li><p>Iris-versicolor sekitar 1.2–1.5 cm.</p></li>
+<li><p>Iris-virginica lebih besar (1.8–2.5 cm).</p></li>
+<li><p>Sangat efektif untuk klasifikasi antar spesies.</p></li>
+</ul>
+</section>
+<section id="boxplot-sepal-petal-berdasarkan-kelas">
+<h2>5. Boxplot Sepal &amp; Petal Berdasarkan Kelas<a class="headerlink" href="#boxplot-sepal-petal-berdasarkan-kelas" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">classes</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span><span class="o">==</span><span class="n">c</span><span class="p">][</span><span class="s2">&quot;petal_length&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">classes</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">classes</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Boxplot Petal Length per Species&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Species&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Petal Length (cm)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/c76e745b6cc1d37d1a16237951a0bf3eff729e205477ae2a29cadf72bd5dbfae.png" src="_images/c76e745b6cc1d37d1a16237951a0bf3eff729e205477ae2a29cadf72bd5dbfae.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Menunjukkan median, sebaran (IQR), serta outlier untuk tiap kelas iris.</p></li>
+<li><p>Iris-setosa memiliki petal length konsisten (median rendah, variasi kecil).</p></li>
+<li><p>Iris-versicolor menengah dengan sebaran lebih lebar.</p></li>
+<li><p>Iris-virginica median tertinggi dengan variasi lebih luas.</p></li>
+<li><p>Boxplot ini memperkuat hasil histogram bahwa petal length adalah fitur yang membedakan antar species.</p></li>
+</ul>
+</section>
+<section id="heatmap-korelasi">
+<h2>6. Heatmap Korelasi<a class="headerlink" href="#heatmap-korelasi" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">corr</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">im</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;coolwarm&quot;</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s2">&quot;nearest&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">fraction</span><span class="o">=</span><span class="mf">0.046</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.04</span><span class="p">)</span>
+
+<span class="c1"># Tampilkan nilai di dalam kotak</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">corr</span><span class="p">)):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">corr</span><span class="p">)):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">corr</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">corr</span><span class="o">.</span><span class="n">columns</span><span class="p">)),</span> <span class="n">corr</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">corr</span><span class="o">.</span><span class="n">columns</span><span class="p">)),</span> <span class="n">corr</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Heatmap Korelasi Antar Fitur&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/70c44a28e694ee94ba6705b4932692158d5d50d62630e2ee958c410be88d5ae8.png" src="_images/70c44a28e694ee94ba6705b4932692158d5d50d62630e2ee958c410be88d5ae8.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Petal length &amp; petal width memiliki korelasi sangat tinggi (~0.96).</p></li>
+<li><p>Sepal length berkorelasi positif dengan ukuran petal, artinya semakin panjang sepal biasanya petal juga lebih panjang.</p></li>
+<li><p>Sepal width tidak begitu berkorelasi dengan fitur lain, sehingga informasi yang diberikannya lebih independen.</p></li>
+<li><p>Heatmap membantu mengidentifikasi fitur yang redundant dan fitur yang unik.</p></li>
+</ul>
 </section>
 </section>
 
@@ -435,13 +592,13 @@ document.write(`
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            name: "pythonpsd",
             path: "./."
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python3'</script>
+    <script>kernelName = 'pythonpsd'</script>
 
                 </article>
               
@@ -487,12 +644,12 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#melihat-distribusi-dataset">1. Melihat distribusi dataset</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-distribusi-data-umur-billing-amount-dan-gender">a. Distribusi data <strong>Umur</strong> , <strong>Billing Amount</strong> dan <strong>Gender</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-distribusi-data-kategorikal-admission-type-insurance-provider-test-results">b. Distribusi data kategorikal (Admission Type, Insurance Provider, Test Results)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-distribusi-gabungan-biaya-tagihan-vs-kondisi-medis-dan-usia-vs-kondisi-medis">c. Distribusi Gabungan (Biaya Tagihan vs. Kondisi Medis dan Usia vs. Kondisi Medis )</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-sepal-length">1. Distribusi Sepal Length</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-sepal-width">2. Distribusi Sepal Width</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-petal-length">3. Distribusi Petal Length</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-petal-width">4. Distribusi Petal Width</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boxplot-sepal-petal-berdasarkan-kelas">5. Boxplot Sepal &amp; Petal Berdasarkan Kelas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#heatmap-korelasi">6. Heatmap Korelasi</a></li>
 </ul>
   </nav></div>
 
