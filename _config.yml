@@ -20,6 +20,10 @@ latex:
 bibtex_bibfiles:
   - references.bib
 
+sphinx:
+  config:
+    html_extra_path: ["results"]
+
 # Information about where the book exists on the web
 repository:
   url: https://github.com/executablebooks/jupyter-book  # Online location of your book
