@@ -12,7 +12,7 @@ chapters:
 - file : data-preprocessing
   sections:
   - file : outlier-detection
-
+  - file : imbalanced
 # - file : eksplorasi-data
 
 # - file: markdown
