@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Explorasi Data &#8212; Proyek Sains Data</title>
+    <title>Exploarasi Data Iris &#8212; Proyek Sains Data</title>
   
   
   
@@ -175,18 +175,19 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="intro.html">
-                    Welcome to your Jupyter Book
+                    Profil Saya
                 </a>
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="memahami-bisnis.html">Memahami Bisnis</a></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="data-understanding.html">Data Understanding</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Explorasi Data</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Exploarasi Data Iris</a></li>
+
 </ul>
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="data-preprocessing.html">Data Pre processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="outlier-detection.html">Deteksi Outlier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="outlier-detection.html">Deteksi Outlier Iris</a></li>
 <li class="toctree-l2"><a class="reference internal" href="imbalanced.html">Imbalanced-Learn</a></li>
 </ul>
 </details></li>
@@ -375,7 +376,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Explorasi Data</h1>
+    <h1>Exploarasi Data Iris</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -385,6 +386,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Exploarasi Data Iris</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-sepal-length">1. Distribusi Sepal Length</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-sepal-width">2. Distribusi Sepal Width</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-petal-length">3. Distribusi Petal Length</a></li>
@@ -392,6 +394,17 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boxplot-sepal-petal-berdasarkan-kelas">5. Boxplot Sepal &amp; Petal Berdasarkan Kelas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#heatmap-korelasi">6. Heatmap Korelasi</a></li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#explorasi-data-bank">Explorasi Data Bank</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-kolom-umur">Distribusi Kolom Umur</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-kolom-saldo-rata-rata">Distribusi Kolom Saldo Rata-rata</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-kontak-terakhir">Distribusi Kontak Terakhir</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-kolom-pekerjaan">Distribusi Kolom Pekerjaan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-kolom-label-berlangganan-deposit-tidak">Distribusi Kolom Label (Berlangganan Deposit / Tidak)</a></li>
+</ul>
+</li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -406,7 +419,7 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">nbimporter</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">koneksi</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_data</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">koneksi</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">()</span>
 </pre></div>
@@ -421,9 +434,9 @@ koneksi.ipynb:43: UserWarning: pandas only supports SQLAlchemy connectable (engi
 </div>
 </div>
 </div>
-<section class="tex2jax_ignore mathjax_ignore" id="explorasi-data">
-<h1>Explorasi Data<a class="headerlink" href="#explorasi-data" title="Link to this heading">#</a></h1>
-<section id="distribusi-sepal-length">
+<section class="tex2jax_ignore mathjax_ignore" id="exploarasi-data-iris">
+<h1>Exploarasi Data Iris<a class="headerlink" href="#exploarasi-data-iris" title="Link to this heading">#</a></h1>
+<!-- # Explorasi Data --><section id="distribusi-sepal-length">
 <h2>1. Distribusi Sepal Length<a class="headerlink" href="#distribusi-sepal-length" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -584,6 +597,198 @@ koneksi.ipynb:43: UserWarning: pandas only supports SQLAlchemy connectable (engi
 </ul>
 </section>
 </section>
+<section class="tex2jax_ignore mathjax_ignore" id="explorasi-data-bank">
+<h1>Explorasi Data Bank<a class="headerlink" href="#explorasi-data-bank" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">nbimporter</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">koneksibank</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_data_bank</span>
+
+<span class="n">df_bank</span> <span class="o">=</span> <span class="n">load_data_bank</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>koneksibank.ipynb:17: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  &quot;        user=\&quot;root\&quot;,              # ganti sesuai user MySQL Anda\n&quot;,
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   age           job  marital  education default_value  balance housing loan  \
+0   58    management  married   tertiary            no     2143     yes   no   
+1   44    technician   single  secondary            no       29     yes   no   
+2   33  entrepreneur  married  secondary            no        2     yes  yes   
+3   47   blue-collar  married    unknown            no     1506     yes   no   
+4   33       unknown   single    unknown            no        1      no   no   
+
+   contact  day month  duration  campaign  pdays  previous poutcome   y  
+0  unknown    5   may       261         1     -1         0  unknown  no  
+1  unknown    5   may       151         1     -1         0  unknown  no  
+2  unknown    5   may        76         1     -1         0  unknown  no  
+3  unknown    5   may        92         1     -1         0  unknown  no  
+4  unknown    5   may       198         1     -1         0  unknown  no  
+</pre></div>
+</div>
+</div>
+</div>
+<section id="distribusi-kolom-umur">
+<h2>Distribusi Kolom Umur<a class="headerlink" href="#distribusi-kolom-umur" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Deskripsi statistik</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_bank</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+
+<span class="c1"># Histogram distribusi</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">df_bank</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribusi Umur Pelanggan&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Umur&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frekuensi&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>count    45211.000000
+mean        40.936210
+std         10.618762
+min         18.000000
+25%         33.000000
+50%         39.000000
+75%         48.000000
+max         95.000000
+Name: age, dtype: float64
+</pre></div>
+</div>
+<img alt="_images/b2a4a75dfffbd8f76808c5982ec0516f2f63d2359dceafe1c627703fbb17c88d.png" src="_images/b2a4a75dfffbd8f76808c5982ec0516f2f63d2359dceafe1c627703fbb17c88d.png" />
+</div>
+</div>
+<p>Berdasarkan distribusi data, umur pelanggan memiliki rata-rata sekitar 41 tahun, dengan standar deviasi 10.6 tahun. Nilai minimum 18 tahun dan maximum 95 tahun. Distribusi cenderung miring ke kiri (left-skewed), di mana sebagian besar pelanggan berusia 30-50 tahun, dengan puncak frekuensi di sekitar 30-40 tahun. Ini menunjukkan bahwa target market bank lebih banyak pada usia dewasa muda hingga menengah, dengan sedikit pelanggan lanjut usia.</p>
+</section>
+<section id="distribusi-kolom-saldo-rata-rata">
+<h2>Distribusi Kolom Saldo Rata-rata<a class="headerlink" href="#distribusi-kolom-saldo-rata-rata" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+
+<span class="c1"># Deskripsi statistik</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_bank</span><span class="p">[</span><span class="s1">&#39;balance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+
+<span class="c1"># Histogram distribusi</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">df_bank</span><span class="p">[</span><span class="s1">&#39;balance&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribusi Saldo Rata-Rata Pelanggan&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Saldo&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frekuensi&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>count     45211.000000
+mean       1362.272058
+std        3044.765829
+min       -8019.000000
+25%          72.000000
+50%         448.000000
+75%        1428.000000
+max      102127.000000
+Name: balance, dtype: float64
+</pre></div>
+</div>
+<img alt="_images/1154fe981235c9ea50659f0db052bf6f6219b1e97582e82293591732c618e29f.png" src="_images/1154fe981235c9ea50659f0db052bf6f6219b1e97582e82293591732c618e29f.png" />
+</div>
+</div>
+<p>Saldo rata-rata pelanggan adalah sekitar 1362, dengan standar deviasi tinggi sekitar 3044, menunjukkan variasi besar. Nilai minimum -8019 (saldo negatif) dan maximum 102127. Distribusi sangat miring ke kanan, di mana sebagian besar pelanggan memiliki saldo rendah (dekat 0 atau negatif), dengan sedikit pelanggan memiliki saldo tinggi. Ini mengindikasikan bahwa banyak pelanggan memiliki keuangan terbatas, sementara segelintir memiliki aset signifikan, yang bisa mempengaruhi strategi marketing bank.</p>
+</section>
+<section id="distribusi-kontak-terakhir">
+<h2>Distribusi Kontak Terakhir<a class="headerlink" href="#distribusi-kontak-terakhir" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Deskripsi statistik</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_bank</span><span class="p">[</span><span class="s1">&#39;duration&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+
+<span class="c1"># Histogram distribusi</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">df_bank</span><span class="p">[</span><span class="s1">&#39;duration&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribusi Durasi Kontak Terakhir&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Durasi (detik)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frekuensi&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>count    45211.000000
+mean       258.163080
+std        257.527812
+min          0.000000
+25%        103.000000
+50%        180.000000
+75%        319.000000
+max       4918.000000
+Name: duration, dtype: float64
+</pre></div>
+</div>
+<img alt="_images/6c376f00d4393ac7a796ea019fb2d24607e70ffa072eb38f121e8fa20296502c.png" src="_images/6c376f00d4393ac7a796ea019fb2d24607e70ffa072eb38f121e8fa20296502c.png" />
+</div>
+</div>
+<p>Durasi kontak rata-rata adalah sekitar 258 detik (sekitar 4 menit), dengan standar deviasi 259 detik. Nilai minimum 0 detik dan maximum 4918 detik. Distribusi miring ke kanan, dengan sebagian besar kontak pendek (kurang dari 5 menit), dan sedikit yang sangat panjang. Ini menunjukkan bahwa kebanyakan interaksi singkat, tetapi durasi yang lebih lama mungkin berkorelasi dengan kesuksesan kampanye, karena memberikan waktu lebih untuk persuasi.</p>
+</section>
+<section id="distribusi-kolom-pekerjaan">
+<h2>Distribusi Kolom Pekerjaan<a class="headerlink" href="#distribusi-kolom-pekerjaan" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hitung frekuensi</span>
+<span class="n">job_dist</span> <span class="o">=</span> <span class="n">df_bank</span><span class="p">[</span><span class="s1">&#39;job&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+
+<span class="c1"># Bar plot distribusi</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">job_dist</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;purple&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribusi Pekerjaan Pelanggan&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Pekerjaan&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frekuensi&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/c34007bddab0a80ce3fe1cd0062a4e17c4a1901c0f1b4cc86eb0d864bb6cb727.png" src="_images/c34007bddab0a80ce3fe1cd0062a4e17c4a1901c0f1b4cc86eb0d864bb6cb727.png" />
+</div>
+</div>
+<p>Distribusi pekerjaan menunjukkan bahwa blue-collar (21.5%) adalah yang paling umum, diikuti management (20.9%), technician (16.8%), admin (11.4%), dan services (9.2%). Kategori lain seperti retired, student, dan unknown memiliki proporsi lebih rendah. Ini mengindikasikan bahwa pelanggan bank lebih banyak dari sektor buruh dan manajemen, sehingga strategi marketing bisa difokuskan pada grup ini untuk meningkatkan efektivitas.</p>
+</section>
+<section id="distribusi-kolom-label-berlangganan-deposit-tidak">
+<h2>Distribusi Kolom Label (Berlangganan Deposit / Tidak)<a class="headerlink" href="#distribusi-kolom-label-berlangganan-deposit-tidak" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hitung frekuensi</span>
+<span class="n">y_dist</span> <span class="o">=</span> <span class="n">df_bank</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+
+<span class="c1"># Pie chart distribusi</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">y_dist</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;pie&#39;</span><span class="p">,</span> <span class="n">autopct</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%1.1f%%</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribusi Hasil Kampanye&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/a9a7ff7e35927fae555884d2e3b2fa4f5d508c2dc50c4ee6931fa5f72c97d4ff.png" src="_images/a9a7ff7e35927fae555884d2e3b2fa4f5d508c2dc50c4ee6931fa5f72c97d4ff.png" />
+</div>
+</div>
+<p>Hasil kampanye menunjukkan bahwa 88.3% pelanggan tidak berlangganan (‘no’), sementara 11.7% berlangganan (‘yes’). Distribusi ini tidak seimbang (imbalanced), dengan mayoritas negatif. Ini mengimplikasikan bahwa kampanye bank kurang efektif secara keseluruhan, dan analisis lebih lanjut diperlukan untuk mengidentifikasi faktor yang meningkatkan tingkat kesuksesan, seperti durasi kontak atau pekerjaan pelanggan.</p>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -649,6 +854,7 @@ koneksi.ipynb:43: UserWarning: pandas only supports SQLAlchemy connectable (engi
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Exploarasi Data Iris</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-sepal-length">1. Distribusi Sepal Length</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-sepal-width">2. Distribusi Sepal Width</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-petal-length">3. Distribusi Petal Length</a></li>
@@ -656,6 +862,17 @@ koneksi.ipynb:43: UserWarning: pandas only supports SQLAlchemy connectable (engi
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boxplot-sepal-petal-berdasarkan-kelas">5. Boxplot Sepal &amp; Petal Berdasarkan Kelas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#heatmap-korelasi">6. Heatmap Korelasi</a></li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#explorasi-data-bank">Explorasi Data Bank</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-kolom-umur">Distribusi Kolom Umur</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-kolom-saldo-rata-rata">Distribusi Kolom Saldo Rata-rata</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-kontak-terakhir">Distribusi Kontak Terakhir</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-kolom-pekerjaan">Distribusi Kolom Pekerjaan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-kolom-label-berlangganan-deposit-tidak">Distribusi Kolom Label (Berlangganan Deposit / Tidak)</a></li>
+</ul>
+</li>
+</ul>
+
   </nav></div>
 
 </div></div>
