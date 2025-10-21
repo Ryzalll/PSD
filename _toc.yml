@@ -11,5 +11,17 @@ chapters:
   
 - file : data-preprocessing
   sections:
-  - file : outlier-detection
+  - file : outlier_detection
   - file : imbalanced
+
+- file : modeling
+  sections:
+  - file : svm
+  - file : naive_bayes
+  - file : random_forest
+
+- file : forecasting
+  sections:
+  - file : get-data
+  - file : pre_processing # Missing Value, Data supervised, Normalisasi Min-Max (skala sklearn)
+  - file : modeling_forecast
