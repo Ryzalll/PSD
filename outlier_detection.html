@@ -1,0 +1,1629 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Deteksi Outlier Iris &#8212; Proyek Sains Data</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'outlier_detection';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Imbalanced-Learn" href="imbalanced.html" />
+    <link rel="prev" title="Data Pre processing" href="data-preprocessing.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/fotoku2.jpg" class="logo__image only-light" alt="Proyek Sains Data - Home"/>
+    <script>document.write(`<img src="_static/fotoku2.jpg" class="logo__image only-dark" alt="Proyek Sains Data - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Profil Saya
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="memahami-bisnis.html">Memahami Bisnis</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="data-understanding.html">Data Understanding</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="explorasi-data.html">Exploarasi Data</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="data-preprocessing.html">Data Pre processing</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Deteksi Outlier Iris</a></li>
+<li class="toctree-l2"><a class="reference internal" href="imbalanced.html">Imbalanced-Learn</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="modeling.html">Modeling menggunakan 3 Algoritma</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="svm.html">SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="naive_bayes.html">Naive Baiyes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="random_forest.html">Random Forest</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="forecasting.html">Forecasting</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="get-data.html">NO2 Data Collection and CSV Export</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pre_processing.html">Pre-Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modeling_forecast.html">Modeling Forecasting dengan KNN Regressor</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Foutlier_detection.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/outlier_detection.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Deteksi Outlier Iris</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#koneksi-ke-dataset">Koneksi ke dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-model">Load Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#abod-angel-based-outlier-detection">ABOD (Angel Based Outlier Detection)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lof-local-outlier-factor">LOF (Local Outlier Factor)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#knn-k-nearest-neighbors-detector">KNN (k-Nearest Neighbors Detector)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-model-ke-dataset">Implementasi Model ke dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-data-dengan-skor-outlier-tertinggi">Menampilkan Data dengan skor outlier tertinggi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghapus-data-dengan-2-skor-outlier-tertinggi">Menghapus Data dengan 2 skor outlier tertinggi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-csv">Download csv</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="deteksi-outlier-iris">
+<h1>Deteksi Outlier Iris<a class="headerlink" href="#deteksi-outlier-iris" title="Link to this heading">#</a></h1>
+<section id="koneksi-ke-dataset">
+<h2>Koneksi ke dataset<a class="headerlink" href="#koneksi-ke-dataset" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Versi Python yang digunakan:&quot;</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Versi Python yang digunakan: 3.11.7 (tags/v3.11.7:fa7a6f2, Dec  4 2023, 19:24:49) [MSC v.1937 64 bit (AMD64)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">nbimporter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">koneksi</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_data</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">()</span>
+
+<span class="n">info</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+
+<span class="c1"># Struktur data (kolom, tipe data, jumlah missing values)</span>
+<span class="n">structure</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+    <span class="s2">&quot;columns&quot;</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span>
+    <span class="s2">&quot;missing_values&quot;</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="c1"># Statistik deskriptif</span>
+<span class="n">desc_stats</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">)</span>
+
+<span class="c1"># Distribusi kolom numerik</span>
+<span class="n">distribution</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># prevent double plot rendering</span>
+
+<span class="n">structure</span><span class="p">,</span> <span class="n">desc_stats</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>koneksi.ipynb:23: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  &quot;    SELECT \n&quot;,
+koneksi.ipynb:43: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  &quot;    SELECT \n&quot;,
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 150 entries, 0 to 149
+Data columns (total 6 columns):
+ #   Column        Non-Null Count  Dtype  
+---  ------        --------------  -----  
+ 0   id            150 non-null    int64  
+ 1   species       150 non-null    object 
+ 2   sepal_length  150 non-null    float64
+ 3   sepal_width   150 non-null    float64
+ 4   petal_length  150 non-null    float64
+ 5   petal_width   150 non-null    float64
+dtypes: float64(4), int64(1), object(1)
+memory usage: 7.2+ KB
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>({&#39;shape&#39;: (150, 6),
+  &#39;columns&#39;: {&#39;id&#39;: dtype(&#39;int64&#39;),
+   &#39;species&#39;: dtype(&#39;O&#39;),
+   &#39;sepal_length&#39;: dtype(&#39;float64&#39;),
+   &#39;sepal_width&#39;: dtype(&#39;float64&#39;),
+   &#39;petal_length&#39;: dtype(&#39;float64&#39;),
+   &#39;petal_width&#39;: dtype(&#39;float64&#39;)},
+  &#39;missing_values&#39;: {&#39;id&#39;: 0,
+   &#39;species&#39;: 0,
+   &#39;sepal_length&#39;: 0,
+   &#39;sepal_width&#39;: 0,
+   &#39;petal_length&#39;: 0,
+   &#39;petal_width&#39;: 0}},
+            id      species  sepal_length  sepal_width  petal_length  \
+ count   150.0          150    150.000000      150.000    150.000000   
+ unique    NaN            3           NaN          NaN           NaN   
+ top       NaN  Iris-setosa           NaN          NaN           NaN   
+ freq      NaN           50           NaN          NaN           NaN   
+ mean     75.5          NaN      5.843333        3.054      3.758667   
+ 
+         petal_width  
+ count    150.000000  
+ unique          NaN  
+ top             NaN  
+ freq            NaN  
+ mean       1.198667  )
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="load-model">
+<h2>Load Model<a class="headerlink" href="#load-model" title="Link to this heading">#</a></h2>
+<section id="abod-angel-based-outlier-detection">
+<h3>ABOD (Angel Based Outlier Detection)<a class="headerlink" href="#abod-angel-based-outlier-detection" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pycaret.anomaly</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">exp_name</span> <span class="o">=</span> <span class="n">setup</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="p">)</span>
+<span class="n">abod</span> <span class="o">=</span> <span class="n">create_model</span><span class="p">(</span><span class="s1">&#39;abod&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+#T_afcd0_row5_col1 {
+  background-color: lightgreen;
+}
+</style>
+<table id="T_afcd0">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_afcd0_level0_col0" class="col_heading level0 col0" >Description</th>
+      <th id="T_afcd0_level0_col1" class="col_heading level0 col1" >Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_afcd0_level0_row0" class="row_heading level0 row0" >0</th>
+      <td id="T_afcd0_row0_col0" class="data row0 col0" >Session id</td>
+      <td id="T_afcd0_row0_col1" class="data row0 col1" >5794</td>
+    </tr>
+    <tr>
+      <th id="T_afcd0_level0_row1" class="row_heading level0 row1" >1</th>
+      <td id="T_afcd0_row1_col0" class="data row1 col0" >Original data shape</td>
+      <td id="T_afcd0_row1_col1" class="data row1 col1" >(150, 6)</td>
+    </tr>
+    <tr>
+      <th id="T_afcd0_level0_row2" class="row_heading level0 row2" >2</th>
+      <td id="T_afcd0_row2_col0" class="data row2 col0" >Transformed data shape</td>
+      <td id="T_afcd0_row2_col1" class="data row2 col1" >(150, 8)</td>
+    </tr>
+    <tr>
+      <th id="T_afcd0_level0_row3" class="row_heading level0 row3" >3</th>
+      <td id="T_afcd0_row3_col0" class="data row3 col0" >Numeric features</td>
+      <td id="T_afcd0_row3_col1" class="data row3 col1" >5</td>
+    </tr>
+    <tr>
+      <th id="T_afcd0_level0_row4" class="row_heading level0 row4" >4</th>
+      <td id="T_afcd0_row4_col0" class="data row4 col0" >Categorical features</td>
+      <td id="T_afcd0_row4_col1" class="data row4 col1" >1</td>
+    </tr>
+    <tr>
+      <th id="T_afcd0_level0_row5" class="row_heading level0 row5" >5</th>
+      <td id="T_afcd0_row5_col0" class="data row5 col0" >Preprocess</td>
+      <td id="T_afcd0_row5_col1" class="data row5 col1" >True</td>
+    </tr>
+    <tr>
+      <th id="T_afcd0_level0_row6" class="row_heading level0 row6" >6</th>
+      <td id="T_afcd0_row6_col0" class="data row6 col0" >Imputation type</td>
+      <td id="T_afcd0_row6_col1" class="data row6 col1" >simple</td>
+    </tr>
+    <tr>
+      <th id="T_afcd0_level0_row7" class="row_heading level0 row7" >7</th>
+      <td id="T_afcd0_row7_col0" class="data row7 col0" >Numeric imputation</td>
+      <td id="T_afcd0_row7_col1" class="data row7 col1" >mean</td>
+    </tr>
+    <tr>
+      <th id="T_afcd0_level0_row8" class="row_heading level0 row8" >8</th>
+      <td id="T_afcd0_row8_col0" class="data row8 col0" >Categorical imputation</td>
+      <td id="T_afcd0_row8_col1" class="data row8 col1" >mode</td>
+    </tr>
+    <tr>
+      <th id="T_afcd0_level0_row9" class="row_heading level0 row9" >9</th>
+      <td id="T_afcd0_row9_col0" class="data row9 col0" >Maximum one-hot encoding</td>
+      <td id="T_afcd0_row9_col1" class="data row9 col1" >-1</td>
+    </tr>
+    <tr>
+      <th id="T_afcd0_level0_row10" class="row_heading level0 row10" >10</th>
+      <td id="T_afcd0_row10_col0" class="data row10 col0" >Encoding method</td>
+      <td id="T_afcd0_row10_col1" class="data row10 col1" >None</td>
+    </tr>
+    <tr>
+      <th id="T_afcd0_level0_row11" class="row_heading level0 row11" >11</th>
+      <td id="T_afcd0_row11_col0" class="data row11 col0" >CPU Jobs</td>
+      <td id="T_afcd0_row11_col1" class="data row11 col1" >-1</td>
+    </tr>
+    <tr>
+      <th id="T_afcd0_level0_row12" class="row_heading level0 row12" >12</th>
+      <td id="T_afcd0_row12_col0" class="data row12 col0" >Use GPU</td>
+      <td id="T_afcd0_row12_col1" class="data row12 col1" >False</td>
+    </tr>
+    <tr>
+      <th id="T_afcd0_level0_row13" class="row_heading level0 row13" >13</th>
+      <td id="T_afcd0_row13_col0" class="data row13 col0" >Log Experiment</td>
+      <td id="T_afcd0_row13_col1" class="data row13 col1" >False</td>
+    </tr>
+    <tr>
+      <th id="T_afcd0_level0_row14" class="row_heading level0 row14" >14</th>
+      <td id="T_afcd0_row14_col0" class="data row14 col0" >Experiment Name</td>
+      <td id="T_afcd0_row14_col1" class="data row14 col1" >anomaly-default-name</td>
+    </tr>
+    <tr>
+      <th id="T_afcd0_level0_row15" class="row_heading level0 row15" >15</th>
+      <td id="T_afcd0_row15_col0" class="data row15 col0" >USI</td>
+      <td id="T_afcd0_row15_col1" class="data row15 col1" >b4bd</td>
+    </tr>
+  </tbody>
+</table>
+</div><div class="output text_html"></div><div class="output text_html"></div><div class="output text_html"></div></div>
+</div>
+</section>
+<section id="lof-local-outlier-factor">
+<h3>LOF (Local Outlier Factor)<a class="headerlink" href="#lof-local-outlier-factor" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">exp_name</span> <span class="o">=</span> <span class="n">setup</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="p">)</span>
+<span class="n">lof</span> <span class="o">=</span> <span class="n">create_model</span><span class="p">(</span><span class="s1">&#39;lof&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+#T_d1069_row5_col1 {
+  background-color: lightgreen;
+}
+</style>
+<table id="T_d1069">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_d1069_level0_col0" class="col_heading level0 col0" >Description</th>
+      <th id="T_d1069_level0_col1" class="col_heading level0 col1" >Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_d1069_level0_row0" class="row_heading level0 row0" >0</th>
+      <td id="T_d1069_row0_col0" class="data row0 col0" >Session id</td>
+      <td id="T_d1069_row0_col1" class="data row0 col1" >7588</td>
+    </tr>
+    <tr>
+      <th id="T_d1069_level0_row1" class="row_heading level0 row1" >1</th>
+      <td id="T_d1069_row1_col0" class="data row1 col0" >Original data shape</td>
+      <td id="T_d1069_row1_col1" class="data row1 col1" >(150, 6)</td>
+    </tr>
+    <tr>
+      <th id="T_d1069_level0_row2" class="row_heading level0 row2" >2</th>
+      <td id="T_d1069_row2_col0" class="data row2 col0" >Transformed data shape</td>
+      <td id="T_d1069_row2_col1" class="data row2 col1" >(150, 8)</td>
+    </tr>
+    <tr>
+      <th id="T_d1069_level0_row3" class="row_heading level0 row3" >3</th>
+      <td id="T_d1069_row3_col0" class="data row3 col0" >Numeric features</td>
+      <td id="T_d1069_row3_col1" class="data row3 col1" >5</td>
+    </tr>
+    <tr>
+      <th id="T_d1069_level0_row4" class="row_heading level0 row4" >4</th>
+      <td id="T_d1069_row4_col0" class="data row4 col0" >Categorical features</td>
+      <td id="T_d1069_row4_col1" class="data row4 col1" >1</td>
+    </tr>
+    <tr>
+      <th id="T_d1069_level0_row5" class="row_heading level0 row5" >5</th>
+      <td id="T_d1069_row5_col0" class="data row5 col0" >Preprocess</td>
+      <td id="T_d1069_row5_col1" class="data row5 col1" >True</td>
+    </tr>
+    <tr>
+      <th id="T_d1069_level0_row6" class="row_heading level0 row6" >6</th>
+      <td id="T_d1069_row6_col0" class="data row6 col0" >Imputation type</td>
+      <td id="T_d1069_row6_col1" class="data row6 col1" >simple</td>
+    </tr>
+    <tr>
+      <th id="T_d1069_level0_row7" class="row_heading level0 row7" >7</th>
+      <td id="T_d1069_row7_col0" class="data row7 col0" >Numeric imputation</td>
+      <td id="T_d1069_row7_col1" class="data row7 col1" >mean</td>
+    </tr>
+    <tr>
+      <th id="T_d1069_level0_row8" class="row_heading level0 row8" >8</th>
+      <td id="T_d1069_row8_col0" class="data row8 col0" >Categorical imputation</td>
+      <td id="T_d1069_row8_col1" class="data row8 col1" >mode</td>
+    </tr>
+    <tr>
+      <th id="T_d1069_level0_row9" class="row_heading level0 row9" >9</th>
+      <td id="T_d1069_row9_col0" class="data row9 col0" >Maximum one-hot encoding</td>
+      <td id="T_d1069_row9_col1" class="data row9 col1" >-1</td>
+    </tr>
+    <tr>
+      <th id="T_d1069_level0_row10" class="row_heading level0 row10" >10</th>
+      <td id="T_d1069_row10_col0" class="data row10 col0" >Encoding method</td>
+      <td id="T_d1069_row10_col1" class="data row10 col1" >None</td>
+    </tr>
+    <tr>
+      <th id="T_d1069_level0_row11" class="row_heading level0 row11" >11</th>
+      <td id="T_d1069_row11_col0" class="data row11 col0" >CPU Jobs</td>
+      <td id="T_d1069_row11_col1" class="data row11 col1" >-1</td>
+    </tr>
+    <tr>
+      <th id="T_d1069_level0_row12" class="row_heading level0 row12" >12</th>
+      <td id="T_d1069_row12_col0" class="data row12 col0" >Use GPU</td>
+      <td id="T_d1069_row12_col1" class="data row12 col1" >False</td>
+    </tr>
+    <tr>
+      <th id="T_d1069_level0_row13" class="row_heading level0 row13" >13</th>
+      <td id="T_d1069_row13_col0" class="data row13 col0" >Log Experiment</td>
+      <td id="T_d1069_row13_col1" class="data row13 col1" >False</td>
+    </tr>
+    <tr>
+      <th id="T_d1069_level0_row14" class="row_heading level0 row14" >14</th>
+      <td id="T_d1069_row14_col0" class="data row14 col0" >Experiment Name</td>
+      <td id="T_d1069_row14_col1" class="data row14 col1" >anomaly-default-name</td>
+    </tr>
+    <tr>
+      <th id="T_d1069_level0_row15" class="row_heading level0 row15" >15</th>
+      <td id="T_d1069_row15_col0" class="data row15 col0" >USI</td>
+      <td id="T_d1069_row15_col1" class="data row15 col1" >f5dc</td>
+    </tr>
+  </tbody>
+</table>
+</div><div class="output text_html"></div><div class="output text_html"></div><div class="output text_html"></div></div>
+</div>
+</section>
+<section id="knn-k-nearest-neighbors-detector">
+<h3>KNN (k-Nearest Neighbors Detector)<a class="headerlink" href="#knn-k-nearest-neighbors-detector" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">exp_name</span> <span class="o">=</span> <span class="n">setup</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="p">)</span>
+<span class="n">knn</span> <span class="o">=</span> <span class="n">create_model</span><span class="p">(</span><span class="s1">&#39;knn&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+#T_1fcb5_row5_col1 {
+  background-color: lightgreen;
+}
+</style>
+<table id="T_1fcb5">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_1fcb5_level0_col0" class="col_heading level0 col0" >Description</th>
+      <th id="T_1fcb5_level0_col1" class="col_heading level0 col1" >Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_1fcb5_level0_row0" class="row_heading level0 row0" >0</th>
+      <td id="T_1fcb5_row0_col0" class="data row0 col0" >Session id</td>
+      <td id="T_1fcb5_row0_col1" class="data row0 col1" >6749</td>
+    </tr>
+    <tr>
+      <th id="T_1fcb5_level0_row1" class="row_heading level0 row1" >1</th>
+      <td id="T_1fcb5_row1_col0" class="data row1 col0" >Original data shape</td>
+      <td id="T_1fcb5_row1_col1" class="data row1 col1" >(150, 6)</td>
+    </tr>
+    <tr>
+      <th id="T_1fcb5_level0_row2" class="row_heading level0 row2" >2</th>
+      <td id="T_1fcb5_row2_col0" class="data row2 col0" >Transformed data shape</td>
+      <td id="T_1fcb5_row2_col1" class="data row2 col1" >(150, 8)</td>
+    </tr>
+    <tr>
+      <th id="T_1fcb5_level0_row3" class="row_heading level0 row3" >3</th>
+      <td id="T_1fcb5_row3_col0" class="data row3 col0" >Numeric features</td>
+      <td id="T_1fcb5_row3_col1" class="data row3 col1" >5</td>
+    </tr>
+    <tr>
+      <th id="T_1fcb5_level0_row4" class="row_heading level0 row4" >4</th>
+      <td id="T_1fcb5_row4_col0" class="data row4 col0" >Categorical features</td>
+      <td id="T_1fcb5_row4_col1" class="data row4 col1" >1</td>
+    </tr>
+    <tr>
+      <th id="T_1fcb5_level0_row5" class="row_heading level0 row5" >5</th>
+      <td id="T_1fcb5_row5_col0" class="data row5 col0" >Preprocess</td>
+      <td id="T_1fcb5_row5_col1" class="data row5 col1" >True</td>
+    </tr>
+    <tr>
+      <th id="T_1fcb5_level0_row6" class="row_heading level0 row6" >6</th>
+      <td id="T_1fcb5_row6_col0" class="data row6 col0" >Imputation type</td>
+      <td id="T_1fcb5_row6_col1" class="data row6 col1" >simple</td>
+    </tr>
+    <tr>
+      <th id="T_1fcb5_level0_row7" class="row_heading level0 row7" >7</th>
+      <td id="T_1fcb5_row7_col0" class="data row7 col0" >Numeric imputation</td>
+      <td id="T_1fcb5_row7_col1" class="data row7 col1" >mean</td>
+    </tr>
+    <tr>
+      <th id="T_1fcb5_level0_row8" class="row_heading level0 row8" >8</th>
+      <td id="T_1fcb5_row8_col0" class="data row8 col0" >Categorical imputation</td>
+      <td id="T_1fcb5_row8_col1" class="data row8 col1" >mode</td>
+    </tr>
+    <tr>
+      <th id="T_1fcb5_level0_row9" class="row_heading level0 row9" >9</th>
+      <td id="T_1fcb5_row9_col0" class="data row9 col0" >Maximum one-hot encoding</td>
+      <td id="T_1fcb5_row9_col1" class="data row9 col1" >-1</td>
+    </tr>
+    <tr>
+      <th id="T_1fcb5_level0_row10" class="row_heading level0 row10" >10</th>
+      <td id="T_1fcb5_row10_col0" class="data row10 col0" >Encoding method</td>
+      <td id="T_1fcb5_row10_col1" class="data row10 col1" >None</td>
+    </tr>
+    <tr>
+      <th id="T_1fcb5_level0_row11" class="row_heading level0 row11" >11</th>
+      <td id="T_1fcb5_row11_col0" class="data row11 col0" >CPU Jobs</td>
+      <td id="T_1fcb5_row11_col1" class="data row11 col1" >-1</td>
+    </tr>
+    <tr>
+      <th id="T_1fcb5_level0_row12" class="row_heading level0 row12" >12</th>
+      <td id="T_1fcb5_row12_col0" class="data row12 col0" >Use GPU</td>
+      <td id="T_1fcb5_row12_col1" class="data row12 col1" >False</td>
+    </tr>
+    <tr>
+      <th id="T_1fcb5_level0_row13" class="row_heading level0 row13" >13</th>
+      <td id="T_1fcb5_row13_col0" class="data row13 col0" >Log Experiment</td>
+      <td id="T_1fcb5_row13_col1" class="data row13 col1" >False</td>
+    </tr>
+    <tr>
+      <th id="T_1fcb5_level0_row14" class="row_heading level0 row14" >14</th>
+      <td id="T_1fcb5_row14_col0" class="data row14 col0" >Experiment Name</td>
+      <td id="T_1fcb5_row14_col1" class="data row14 col1" >anomaly-default-name</td>
+    </tr>
+    <tr>
+      <th id="T_1fcb5_level0_row15" class="row_heading level0 row15" >15</th>
+      <td id="T_1fcb5_row15_col0" class="data row15 col0" >USI</td>
+      <td id="T_1fcb5_row15_col1" class="data row15 col1" >ee00</td>
+    </tr>
+  </tbody>
+</table>
+</div><div class="output text_html"></div><div class="output text_html"></div><div class="output text_html"></div></div>
+</div>
+</section>
+</section>
+<section id="implementasi-model-ke-dataset">
+<h2>Implementasi Model ke dataset<a class="headerlink" href="#implementasi-model-ke-dataset" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign model -&gt; hasilkan dataframe dengan kolom anomaly</span>
+<span class="n">df_anomaly_abod</span> <span class="o">=</span> <span class="n">assign_model</span><span class="p">(</span><span class="n">abod</span><span class="p">)</span>
+<span class="n">df_anomaly_lof</span> <span class="o">=</span> <span class="n">assign_model</span><span class="p">(</span><span class="n">lof</span><span class="p">)</span>
+<span class="n">df_anomaly_knn</span> <span class="o">=</span> <span class="n">assign_model</span><span class="p">(</span><span class="n">knn</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="menampilkan-data-dengan-skor-outlier-tertinggi">
+<h2>Menampilkan Data dengan skor outlier tertinggi<a class="headerlink" href="#menampilkan-data-dengan-skor-outlier-tertinggi" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_sorted_abod</span> <span class="o">=</span> <span class="n">df_anomaly_abod</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;Anomaly_Score&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Top 5 Deteksi Anomali berdasarkan (ABOD)&#39;</span><span class="p">)</span>
+<span class="n">df_sorted_abod</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Top 5 Deteksi Anomali berdasarkan (ABOD)
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>species</th>
+      <th>sepal_length</th>
+      <th>sepal_width</th>
+      <th>petal_length</th>
+      <th>petal_width</th>
+      <th>Anomaly</th>
+      <th>Anomaly_Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>107</td>
+      <td>Iris-virginica</td>
+      <td>4.9</td>
+      <td>2.5</td>
+      <td>4.5</td>
+      <td>1.7</td>
+      <td>1</td>
+      <td>-0.001276</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>123</td>
+      <td>Iris-virginica</td>
+      <td>7.7</td>
+      <td>2.8</td>
+      <td>6.7</td>
+      <td>2.0</td>
+      <td>1</td>
+      <td>-0.004978</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>119</td>
+      <td>Iris-virginica</td>
+      <td>7.7</td>
+      <td>2.6</td>
+      <td>6.9</td>
+      <td>2.3</td>
+      <td>1</td>
+      <td>-0.005204</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>118</td>
+      <td>Iris-virginica</td>
+      <td>7.7</td>
+      <td>3.8</td>
+      <td>6.7</td>
+      <td>2.2</td>
+      <td>1</td>
+      <td>-0.005361</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>120</td>
+      <td>Iris-virginica</td>
+      <td>6.0</td>
+      <td>2.2</td>
+      <td>5.0</td>
+      <td>1.5</td>
+      <td>1</td>
+      <td>-0.006080</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_sorted_lof</span> <span class="o">=</span> <span class="n">df_anomaly_lof</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;Anomaly_Score&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Top 5 Deteksi Anomali berdasarkan (LOF)&#39;</span><span class="p">)</span>
+<span class="n">df_sorted_lof</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Top 5 Deteksi Anomali berdasarkan (LOF)
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>species</th>
+      <th>sepal_length</th>
+      <th>sepal_width</th>
+      <th>petal_length</th>
+      <th>petal_width</th>
+      <th>Anomaly</th>
+      <th>Anomaly_Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Iris-setosa</td>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>1</td>
+      <td>1.256153</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>150</td>
+      <td>Iris-virginica</td>
+      <td>5.9</td>
+      <td>3.0</td>
+      <td>5.1</td>
+      <td>1.8</td>
+      <td>1</td>
+      <td>1.253521</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>Iris-setosa</td>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>1</td>
+      <td>1.217657</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>149</td>
+      <td>Iris-virginica</td>
+      <td>6.2</td>
+      <td>3.4</td>
+      <td>5.4</td>
+      <td>2.3</td>
+      <td>1</td>
+      <td>1.214298</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>3</td>
+      <td>Iris-setosa</td>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>1</td>
+      <td>1.183005</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_sorted_knn</span> <span class="o">=</span> <span class="n">df_anomaly_knn</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;Anomaly_Score&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Top 5 Deteksi Anomali berdasarkan (KNN)&#39;</span><span class="p">)</span>
+<span class="n">df_sorted_knn</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Top 5 Deteksi Anomali berdasarkan (KNN)
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>species</th>
+      <th>sepal_length</th>
+      <th>sepal_width</th>
+      <th>petal_length</th>
+      <th>petal_width</th>
+      <th>Anomaly</th>
+      <th>Anomaly_Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>150</td>
+      <td>Iris-virginica</td>
+      <td>5.9</td>
+      <td>3.0</td>
+      <td>5.1</td>
+      <td>1.8</td>
+      <td>1</td>
+      <td>5.155579</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>Iris-setosa</td>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>1</td>
+      <td>5.037857</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>51</td>
+      <td>Iris-versicolor</td>
+      <td>7.0</td>
+      <td>3.2</td>
+      <td>4.7</td>
+      <td>1.4</td>
+      <td>1</td>
+      <td>4.397727</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>50</td>
+      <td>Iris-setosa</td>
+      <td>5.0</td>
+      <td>3.3</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>1</td>
+      <td>4.389761</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2</td>
+      <td>Iris-setosa</td>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>1</td>
+      <td>4.146083</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="menghapus-data-dengan-2-skor-outlier-tertinggi">
+<h2>Menghapus Data dengan 2 skor outlier tertinggi<a class="headerlink" href="#menghapus-data-dengan-2-skor-outlier-tertinggi" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_abod_clean</span> <span class="o">=</span> <span class="n">df_sorted_abod</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df_abod_clean</span> <span class="o">=</span> <span class="n">df_abod_clean</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;id&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df_abod_clean</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>species</th>
+      <th>sepal_length</th>
+      <th>sepal_width</th>
+      <th>petal_length</th>
+      <th>petal_width</th>
+      <th>Anomaly</th>
+      <th>Anomaly_Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Iris-setosa</td>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>0</td>
+      <td>-0.010918</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Iris-setosa</td>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>0</td>
+      <td>-0.105879</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Iris-setosa</td>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>0</td>
+      <td>-0.160850</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>Iris-setosa</td>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>0</td>
+      <td>-0.108965</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>Iris-setosa</td>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>0</td>
+      <td>-0.103372</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_lof_clean</span> <span class="o">=</span> <span class="n">df_sorted_lof</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df_lof_clean</span> <span class="o">=</span> <span class="n">df_lof_clean</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;id&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df_lof_clean</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>species</th>
+      <th>sepal_length</th>
+      <th>sepal_width</th>
+      <th>petal_length</th>
+      <th>petal_width</th>
+      <th>Anomaly</th>
+      <th>Anomaly_Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2</td>
+      <td>Iris-setosa</td>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>1</td>
+      <td>1.217657</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3</td>
+      <td>Iris-setosa</td>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>1</td>
+      <td>1.183005</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4</td>
+      <td>Iris-setosa</td>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>1</td>
+      <td>1.153191</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>5</td>
+      <td>Iris-setosa</td>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>0</td>
+      <td>1.126259</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>6</td>
+      <td>Iris-setosa</td>
+      <td>5.4</td>
+      <td>3.9</td>
+      <td>1.7</td>
+      <td>0.4</td>
+      <td>0</td>
+      <td>1.104792</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_knn_clean</span> <span class="o">=</span> <span class="n">df_sorted_knn</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df_knn_clean</span> <span class="o">=</span> <span class="n">df_knn_clean</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;id&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df_knn_clean</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>species</th>
+      <th>sepal_length</th>
+      <th>sepal_width</th>
+      <th>petal_length</th>
+      <th>petal_width</th>
+      <th>Anomaly</th>
+      <th>Anomaly_Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2</td>
+      <td>Iris-setosa</td>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>1</td>
+      <td>4.146083</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3</td>
+      <td>Iris-setosa</td>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>0</td>
+      <td>3.190611</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4</td>
+      <td>Iris-setosa</td>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>0</td>
+      <td>3.018278</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>5</td>
+      <td>Iris-setosa</td>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>0</td>
+      <td>3.008322</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>6</td>
+      <td>Iris-setosa</td>
+      <td>5.4</td>
+      <td>3.9</td>
+      <td>1.7</td>
+      <td>0.4</td>
+      <td>0</td>
+      <td>3.190611</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Ukuran dataset clean dari metode ABOD:&#39;</span><span class="p">,</span> <span class="n">df_abod_clean</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Ukuran dataset clean dari metode LOF:&#39;</span><span class="p">,</span> <span class="n">df_lof_clean</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Ukuran dataset clean dari metode KNN:&#39;</span><span class="p">,</span> <span class="n">df_knn_clean</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ukuran dataset clean dari metode ABOD: (148, 8)
+Ukuran dataset clean dari metode LOF: (148, 8)
+Ukuran dataset clean dari metode KNN: (148, 8)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Hasil diatas menunjukkan bahwa sudah 2 data yang terhapus</p>
+</section>
+<section id="download-csv">
+<h2>Download csv<a class="headerlink" href="#download-csv" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_abod_clean</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;results/data_clean_abod.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">df_lof_clean</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;results/data_clean_lof.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">df_knn_clean</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;results/data_clean_knn.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><a class="reference internal" href="#data_clean_abod.csv"><span class="xref myst">📥 Download hasil clean abod (CSV)</span></a></p>
+<p><a class="reference internal" href="#data_clean_lof.csv"><span class="xref myst">📥 Download hasil clean lof (CSV)</span></a></p>
+<p><a class="reference internal" href="#data_clean_knn.csv"><span class="xref myst">📥 Download hasil clean knn (CSV)</span></a></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="data-preprocessing.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Data Pre processing</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="imbalanced.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Imbalanced-Learn</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#koneksi-ke-dataset">Koneksi ke dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-model">Load Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#abod-angel-based-outlier-detection">ABOD (Angel Based Outlier Detection)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lof-local-outlier-factor">LOF (Local Outlier Factor)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#knn-k-nearest-neighbors-detector">KNN (k-Nearest Neighbors Detector)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-model-ke-dataset">Implementasi Model ke dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-data-dengan-skor-outlier-tertinggi">Menampilkan Data dengan skor outlier tertinggi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghapus-data-dengan-2-skor-outlier-tertinggi">Menghapus Data dengan 2 skor outlier tertinggi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-csv">Download csv</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Ryzalll
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
