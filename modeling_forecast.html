@@ -57,10 +57,12 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'modeling_forecast';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Pre-Processing" href="pre_processing.html" />
+    <link rel="prev" title="Pre-Processing Forecasting" href="pre_processing.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -197,8 +199,8 @@
 </ul>
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="forecasting.html">Forecasting</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="get-data.html">NO2 Data Collection and CSV Export</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pre_processing.html">Pre-Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="get-data.html"><span class="math notranslate nohighlight">\(NO_2\)</span> Data Collection and CSV Export</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pre_processing.html">Pre-Processing Forecasting</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Modeling Forecasting dengan KNN Regressor</a></li>
 </ul>
 </details></li>
@@ -397,6 +399,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-dengan-fitur-lags-3">Data dengan fitur (<span class="math notranslate nohighlight">\(lags\)</span> = 3)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membagi-data-training-dan-testing">Membagi data Training dan Testing</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling">Modeling</a></li>
 </ul>
@@ -421,6 +424,8 @@ document.write(`
 </div>
 </div>
 </div>
+<section id="data-dengan-fitur-lags-3">
+<h2>Data dengan fitur (<span class="math notranslate nohighlight">\(lags\)</span> = 3)<a class="headerlink" href="#data-dengan-fitur-lags-3" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;dataset/data2.csv&#39;</span><span class="p">)</span>
@@ -443,6 +448,8 @@ document.write(`
 </div>
 </div>
 </div>
+<p>Melakukan penyesuaian kolom <em>t</em> sebagai field time series</p>
+</section>
 <section id="membagi-data-training-dan-testing">
 <h2>Membagi data Training dan Testing<a class="headerlink" href="#membagi-data-training-dan-testing" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
@@ -452,6 +459,7 @@ document.write(`
 </div>
 </div>
 </div>
+<p>Dengan menggunakan sklearn dan fungsi <em>train_test_split</em>, membagi data sebanyak</p>
 </section>
 <section id="modeling">
 <h2>Modeling<a class="headerlink" href="#modeling" title="Link to this heading">#</a></h2>
@@ -882,6 +890,16 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 }
 </style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>KNeighborsRegressor(n_neighbors=3, weights=&#x27;distance&#x27;)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" checked><label for="sk-estimator-id-4" class="sk-toggleable__label fitted sk-toggleable__label-arrow fitted">&nbsp;&nbsp;KNeighborsRegressor<a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.4/modules/generated/sklearn.neighbors.KNeighborsRegressor.html">?<span>Documentation for KNeighborsRegressor</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></label><div class="sk-toggleable__content fitted"><pre>KNeighborsRegressor(n_neighbors=3, weights=&#x27;distance&#x27;)</pre></div> </div></div></div></div></div></div>
 </div>
+<p>Kode tersebut membuat model KNN Regressor yang akan memprediksi nilai kontinu berdasarkan 3 tetangga terdekat, di mana kontribusi tiap tetangga diberi bobot sesuai jaraknya (semakin dekat, bobot makin besar). Jarak antar sampel dihitung dengan Minkowski metric</p>
+<div class="math notranslate nohighlight">
+\[
+D(x, y) = \left( \sum_{i=1}^{n} |x_i - y_i|^p \right)^{\frac{1}{p}}
+\]</div>
+<p>Keterangan:</p>
+<ul class="simple">
+<li><p>(D(x, y)) = jarak Minkowski antara dua titik (x) dan (y)</p></li>
+<li><p>(p) = parameter orde jarak (misalnya (p=1) untuk Manhattan, (p=2) untuk Euclidean)</p></li>
+</ul>
 </section>
 </section>
 
@@ -921,7 +939,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Pre-Processing</p>
+        <p class="prev-next-title">Pre-Processing Forecasting</p>
       </div>
     </a>
 </div>
@@ -940,6 +958,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-dengan-fitur-lags-3">Data dengan fitur (<span class="math notranslate nohighlight">\(lags\)</span> = 3)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membagi-data-training-dan-testing">Membagi data Training dan Testing</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling">Modeling</a></li>
 </ul>
