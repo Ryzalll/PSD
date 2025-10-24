@@ -4,5 +4,5 @@
 
 [2. Data Understanding dan Pre-processing](./pre_processing.ipynb)
 
-[3. Modelling](./get-data.ipynb)
+[3. Modelling](./modeling_forecast.ipynb)
 
