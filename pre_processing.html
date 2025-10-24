@@ -616,6 +616,9 @@ Disimpan ke: dataset/data.csv
 </div>
 </div>
 </div>
+<p>Merubah data time series dengan target <span class="math notranslate nohighlight">\(NO_2\)</span>, menjadi data dengan 3 fitur tambahan.</p>
+<p>Data fitur tambahan dihasilkan dari 3 data hari sebelumnya.</p>
+<p>Contoh : Untuk data target tanggal 23 September 2021, menggunakan data <span class="math notranslate nohighlight">\(NO_2\)</span> saat tanggal 22, 21, dan 20 September, dan seterusnya.</p>
 </section>
 <section id="scalling-min-max-normalization">
 <h2>Scalling Min-Max Normalization<a class="headerlink" href="#scalling-min-max-normalization" title="Link to this heading">#</a></h2>
@@ -638,6 +641,7 @@ Disimpan ke: dataset/data.csv
 </div>
 </div>
 </div>
+<p>Kode tersebut membuat <strong>MinMaxScaler(0–1)</strong> lalu menerapkannya ke <strong>semua kolom kecuali <code class="docutils literal notranslate"><span class="pre">t</span></code></strong>, sehingga setiap kolom numerik dipetakan ke rentang ([0,1]). Hasilnya disalin ke <code class="docutils literal notranslate"><span class="pre">df_scaled</span></code>, kemudian disalin kembali ke <code class="docutils literal notranslate"><span class="pre">df</span></code> dan <strong>disimpan</strong> sebagai CSV di <code class="docutils literal notranslate"><span class="pre">dataset/data2.csv</span></code> tanpa indeks. Singkatnya: normalisasi fitur → pratinjau (<code class="docutils literal notranslate"><span class="pre">head()</span></code>) → simpan dataset yang sudah diskalakan.</p>
 </section>
 </section>
 
