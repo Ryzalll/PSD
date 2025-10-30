@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Pre-Processing Forecasting &#8212; Proyek Sains Data</title>
+    <title>Forecasting \(NO_2\) dengan 30 Hari (14 Lags) &#8212; Proyek Sains Data</title>
   
   
   
@@ -205,7 +205,7 @@
 <li class="toctree-l2"><a class="reference internal" href="modeling_forecast.html">Modeling Forecasting dengan KNN Regressor</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Pre-Processing Forecasting</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Forecasting <span class="math notranslate nohighlight">\(NO_2\)</span> dengan 30 Hari (14 Lags)</a></li>
 
 
 </ul>
@@ -393,7 +393,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Pre-Processing Forecasting</h1>
+    <h1>Forecasting NO_2 dengan 30 Hari (14 Lags)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -403,18 +403,16 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Pre-Processing Forecasting</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Forecasting <span class="math notranslate nohighlight">\(NO_2\)</span> dengan 30 Hari (14 Lags)</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agregat-data-no-2-harian">Agregat Data <span class="math notranslate nohighlight">\(NO_2\)</span> Harian</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grafik-data-time-series-harian-sebelum-interpolasi-linear">Grafik Data Time Series Harian (Sebelum Interpolasi Linear)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penanganan-missing-value-dengan-interpolasi-linear">Penanganan Missing Value dengan Interpolasi Linear</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grafik-data-time-series-setelah-interpolasi-linear">Grafik data TIme Series (Setelah Interpolasi Linear)</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penanganan-missing-value-dengan-interpolasi-linear">Penanganan Missing Value dengan Interpolasi Linear</a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mengatasi-data-outlier">Mengatasi data Outlier</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grafik-data-time-series-setelah-interpolasi-linear">Grafik data Time Series (Setelah Interpolasi Linear)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengubah-menjadi-data-superviesd">Mengubah menjadi data Superviesd</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seleksi-fitur-auto-correlation">Seleksi Fitur Auto Correlation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scalling-min-max-normalization">Scalling Min-Max Normalization</a></li>
@@ -437,8 +435,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="pre-processing-forecasting">
-<h1>Pre-Processing Forecasting<a class="headerlink" href="#pre-processing-forecasting" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="forecasting-no-2-dengan-30-hari-14-lags">
+<h1>Forecasting <span class="math notranslate nohighlight">\(NO_2\)</span> dengan 30 Hari (14 Lags)<a class="headerlink" href="#forecasting-no-2-dengan-30-hari-14-lags" title="Link to this heading">#</a></h1>
 <section id="agregat-data-no-2-harian">
 <h2>Agregat Data <span class="math notranslate nohighlight">\(NO_2\)</span> Harian<a class="headerlink" href="#agregat-data-no-2-harian" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
@@ -561,27 +559,6 @@ Disimpan ke: dataset/data.csv
 </div>
 </div>
 </div>
-<section id="grafik-data-time-series-setelah-interpolasi-linear">
-<h3>Grafik data TIme Series (Setelah Interpolasi Linear)<a class="headerlink" href="#grafik-data-time-series-setelah-interpolasi-linear" title="Link to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">no2_harian_filled</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">],</span> <span class="n">no2_harian_filled</span><span class="p">[</span><span class="s1">&#39;NO2_mean&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;NO2 Daily Average Time Series&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;NO2 Concentration&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/66a5c2d26f484120c9ab75238f3215d97d59b0c153cd32e1ab9a4e0d062d995b.png" src="_images/66a5c2d26f484120c9ab75238f3215d97d59b0c153cd32e1ab9a4e0d062d995b.png" />
-</div>
-</div>
-</section>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="mengatasi-data-outlier">
@@ -619,6 +596,27 @@ NO2 range: [0.00, 0.00]
 </div>
 </div>
 </div>
+<section id="grafik-data-time-series-setelah-interpolasi-linear">
+<h2>Grafik data Time Series (Setelah Interpolasi Linear)<a class="headerlink" href="#grafik-data-time-series-setelah-interpolasi-linear" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">no2_harian_filled</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">],</span> <span class="n">no2_harian_filled</span><span class="p">[</span><span class="s1">&#39;NO2_mean&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;NO2 Daily Average Time Series&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;NO2 Concentration&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/cccf041ff2d1534b7d7c4189de0f5729a252ab1636c8eabfde5f8b55a7bcb688.png" src="_images/cccf041ff2d1534b7d7c4189de0f5729a252ab1636c8eabfde5f8b55a7bcb688.png" />
+</div>
+</div>
+</section>
 <section id="mengubah-menjadi-data-superviesd">
 <h2>Mengubah menjadi data Superviesd<a class="headerlink" href="#mengubah-menjadi-data-superviesd" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
@@ -1314,18 +1312,16 @@ NO2 Level Category: Baik
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Pre-Processing Forecasting</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Forecasting <span class="math notranslate nohighlight">\(NO_2\)</span> dengan 30 Hari (14 Lags)</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agregat-data-no-2-harian">Agregat Data <span class="math notranslate nohighlight">\(NO_2\)</span> Harian</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grafik-data-time-series-harian-sebelum-interpolasi-linear">Grafik Data Time Series Harian (Sebelum Interpolasi Linear)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penanganan-missing-value-dengan-interpolasi-linear">Penanganan Missing Value dengan Interpolasi Linear</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grafik-data-time-series-setelah-interpolasi-linear">Grafik data TIme Series (Setelah Interpolasi Linear)</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penanganan-missing-value-dengan-interpolasi-linear">Penanganan Missing Value dengan Interpolasi Linear</a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mengatasi-data-outlier">Mengatasi data Outlier</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grafik-data-time-series-setelah-interpolasi-linear">Grafik data Time Series (Setelah Interpolasi Linear)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengubah-menjadi-data-superviesd">Mengubah menjadi data Superviesd</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seleksi-fitur-auto-correlation">Seleksi Fitur Auto Correlation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scalling-min-max-normalization">Scalling Min-Max Normalization</a></li>
