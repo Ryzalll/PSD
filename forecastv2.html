@@ -59,11 +59,10 @@
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'pre_processing';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'forecastv2';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Modeling Forecasting dengan KNN Regressor" href="modeling_forecast.html" />
-    <link rel="prev" title="\(NO_2\) Data Collection and CSV Export" href="get-data.html" />
+    <link rel="prev" title="Modeling Forecasting dengan KNN Regressor" href="modeling_forecast.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -199,14 +198,14 @@
 <li class="toctree-l2"><a class="reference internal" href="random_forest.html">Random Forest</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="forecasting.html">Forecasting</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="forecasting.html">Forecasting</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="get-data.html"><span class="math notranslate nohighlight">\(NO_2\)</span> Data Collection and CSV Export</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Pre-Processing Forecasting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pre_processing.html">Pre-Processing Forecasting</a></li>
 
 <li class="toctree-l2"><a class="reference internal" href="modeling_forecast.html">Modeling Forecasting dengan KNN Regressor</a></li>
 </ul>
 </details></li>
-<li class="toctree-l1"><a class="reference internal" href="forecastv2.html">Pre-Processing Forecasting</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Pre-Processing Forecasting</a></li>
 
 
 </ul>
@@ -280,7 +279,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fpre_processing.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fforecastv2.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -310,7 +309,7 @@
       
       
       
-      <li><a href="_sources/pre_processing.ipynb" target="_blank"
+      <li><a href="_sources/forecastv2.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -413,13 +412,17 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grafik-data-time-series-setelah-interpolasi-linear">Grafik data TIme Series (Setelah Interpolasi Linear)</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mengatasi-data-outlier">Mengatasi data Outlier</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengubah-menjadi-data-superviesd">Mengubah menjadi data Superviesd</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seleksi-fitur-auto-correlation">Seleksi Fitur Auto Correlation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scalling-min-max-normalization">Scalling Min-Max Normalization</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling">Modeling</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#split-dataset">Split Dataset</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Modeling</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling-14-lags">Modeling 14 Lags</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#split-dataset">Split dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling-data-training">Modeling Data Training</a></li>
 </ul>
 </li>
 </ul>
@@ -580,6 +583,42 @@ Disimpan ke: dataset/data.csv
 </div>
 </section>
 </section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="mengatasi-data-outlier">
+<h1>Mengatasi data Outlier<a class="headerlink" href="#mengatasi-data-outlier" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import necessary library</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">RobustScaler</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Before outlier treatment:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of rows: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">no2_harian_filled</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;NO2 range: [</span><span class="si">{</span><span class="n">no2_harian_filled</span><span class="p">[</span><span class="s1">&#39;NO2_mean&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">no2_harian_filled</span><span class="p">[</span><span class="s1">&#39;NO2_mean&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+
+<span class="c1"># Apply RobustScaler which is robust to outliers</span>
+<span class="n">robust_scaler</span> <span class="o">=</span> <span class="n">RobustScaler</span><span class="p">()</span>
+<span class="n">no2_harian_filled</span><span class="p">[</span><span class="s1">&#39;NO2_mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">robust_scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">no2_harian_filled</span><span class="p">[[</span><span class="s1">&#39;NO2_mean&#39;</span><span class="p">]])</span> <span class="o">*</span> \
+                                <span class="n">no2_harian_filled</span><span class="p">[</span><span class="s1">&#39;NO2_mean&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="o">+</span> \
+                                <span class="n">no2_harian_filled</span><span class="p">[</span><span class="s1">&#39;NO2_mean&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">After outlier treatment:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of rows: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">no2_harian_filled</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;NO2 range: [</span><span class="si">{</span><span class="n">no2_harian_filled</span><span class="p">[</span><span class="s1">&#39;NO2_mean&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">no2_harian_filled</span><span class="p">[</span><span class="s1">&#39;NO2_mean&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Before outlier treatment:
+Number of rows: 1461
+NO2 range: [0.00, 0.00]
+
+After outlier treatment:
+Number of rows: 1461
+NO2 range: [0.00, 0.00]
+</pre></div>
+</div>
+</div>
+</div>
 <section id="mengubah-menjadi-data-superviesd">
 <h2>Mengubah menjadi data Superviesd<a class="headerlink" href="#mengubah-menjadi-data-superviesd" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
@@ -599,32 +638,60 @@ Disimpan ke: dataset/data.csv
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Dataframe harus memiliki kolom &#39;NO2&#39; atau &#39;NO2_mean&#39;.&quot;</span><span class="p">)</span>
 
-    <span class="c1"># Buat kolom lag (h-1, h-2, h-3) berbasis waktu harian</span>
-    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;h-1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;NO_2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;h-2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;NO_2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;h-3&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;NO_2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="c1"># Buat kolom lag (h-1 sampai h-30) berbasis waktu harian</span>
+    <span class="n">lag_columns</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">30</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">col_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;h-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">col_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;NO_2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">lag_columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">col_name</span><span class="p">)</span>
+    
+    <span class="c1"># Buang baris awal yang belum punya lag lengkap</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="n">lag_columns</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="c1"># Kembalikan ke date saja untuk kolom t</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">date</span>
 
-    <span class="c1"># Ambil hanya kolom yang diminta &amp; buang baris awal yang belum punya lag lengkap</span>
-    <span class="n">supervised</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;t&#39;</span><span class="p">,</span> <span class="s1">&#39;h-3&#39;</span><span class="p">,</span> <span class="s1">&#39;h-2&#39;</span><span class="p">,</span> <span class="s1">&#39;h-1&#39;</span><span class="p">,</span> <span class="s1">&#39;NO_2&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;h-3&#39;</span><span class="p">,</span> <span class="s1">&#39;h-2&#39;</span><span class="p">,</span> <span class="s1">&#39;h-1&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-    <span class="c1"># (opsional) jika ingin &#39;t&#39; sebagai date saja, bukan datetime:</span>
-    <span class="n">supervised</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">supervised</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">date</span>
-
-    <span class="k">return</span> <span class="n">supervised</span>
+    <span class="k">return</span> <span class="n">df</span>
 
 <span class="c1"># Pakai fungsi:</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">make_supervised_lag</span><span class="p">(</span><span class="n">no2_harian_filled</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape dataframe:&quot;</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Daftar kolom:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Contoh 5 baris pertama:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>            t       h-3       h-2       h-1      NO_2
-0  2021-09-23  0.000055  0.000038  0.000021  0.000032
-1  2021-09-24  0.000038  0.000021  0.000032  0.000033
-2  2021-09-25  0.000021  0.000032  0.000033  0.000049
-3  2021-09-26  0.000032  0.000033  0.000049  0.000035
-4  2021-09-27  0.000033  0.000049  0.000035  0.000042
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shape dataframe: (1431, 32)
+
+Daftar kolom:
+[&#39;t&#39;, &#39;NO_2&#39;, &#39;h-1&#39;, &#39;h-2&#39;, &#39;h-3&#39;, &#39;h-4&#39;, &#39;h-5&#39;, &#39;h-6&#39;, &#39;h-7&#39;, &#39;h-8&#39;, &#39;h-9&#39;, &#39;h-10&#39;, &#39;h-11&#39;, &#39;h-12&#39;, &#39;h-13&#39;, &#39;h-14&#39;, &#39;h-15&#39;, &#39;h-16&#39;, &#39;h-17&#39;, &#39;h-18&#39;, &#39;h-19&#39;, &#39;h-20&#39;, &#39;h-21&#39;, &#39;h-22&#39;, &#39;h-23&#39;, &#39;h-24&#39;, &#39;h-25&#39;, &#39;h-26&#39;, &#39;h-27&#39;, &#39;h-28&#39;, &#39;h-29&#39;, &#39;h-30&#39;]
+
+Contoh 5 baris pertama:
+            t      NO_2       h-1       h-2       h-3       h-4       h-5  \
+0  2021-10-20  0.000060  0.000030  0.000019  0.000043  0.000056  0.000049   
+1  2021-10-21  0.000079  0.000060  0.000030  0.000019  0.000043  0.000056   
+2  2021-10-22  0.000051  0.000079  0.000060  0.000030  0.000019  0.000043   
+3  2021-10-23  0.000046  0.000051  0.000079  0.000060  0.000030  0.000019   
+4  2021-10-24  0.000040  0.000046  0.000051  0.000079  0.000060  0.000030   
+
+        h-6       h-7       h-8  ...      h-21      h-22      h-23      h-24  \
+0  0.000047  0.000048  0.000046  ...  0.000056  0.000064  0.000044  0.000038   
+1  0.000049  0.000047  0.000048  ...  0.000048  0.000056  0.000064  0.000044   
+2  0.000056  0.000049  0.000047  ...  0.000086  0.000048  0.000056  0.000064   
+3  0.000043  0.000056  0.000049  ...  0.000035  0.000086  0.000048  0.000056   
+4  0.000019  0.000043  0.000056  ...  0.000063  0.000035  0.000086  0.000048   
+
+       h-25      h-26      h-27      h-28      h-29      h-30  
+0  0.000049  0.000037  0.000036  0.000027  0.000041  0.000054  
+1  0.000038  0.000049  0.000037  0.000036  0.000027  0.000041  
+2  0.000044  0.000038  0.000049  0.000037  0.000036  0.000027  
+3  0.000064  0.000044  0.000038  0.000049  0.000037  0.000036  
+4  0.000056  0.000064  0.000044  0.000038  0.000049  0.000037  
+
+[5 rows x 32 columns]
 </pre></div>
 </div>
 </div>
@@ -633,12 +700,250 @@ Disimpan ke: dataset/data.csv
 <p>Data fitur tambahan dihasilkan dari 3 data hari sebelumnya.</p>
 <p>Contoh : Untuk data target tanggal 23 September 2021, menggunakan data <span class="math notranslate nohighlight">\(NO_2\)</span> saat tanggal 22, 21, dan 20 September, dan seterusnya.</p>
 </section>
+<section id="seleksi-fitur-auto-correlation">
+<h2>Seleksi Fitur Auto Correlation<a class="headerlink" href="#seleksi-fitur-auto-correlation" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ambil semua kolom lag yang ada di df</span>
+<span class="n">lag_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;h-&#39;</span><span class="p">)]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Kolom lag yang tersedia:&quot;</span><span class="p">,</span> <span class="n">lag_cols</span><span class="p">)</span>
+
+<span class="n">corr_signed</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">lag_cols</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;NO_2&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()[</span><span class="s1">&#39;NO_2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;NO_2&#39;</span><span class="p">)</span>
+<span class="c1"># Create correlation table</span>
+<span class="n">corr_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;Nama Fitur&#39;</span><span class="p">:</span> <span class="n">lag_cols</span><span class="p">,</span>
+    <span class="s1">&#39;Nilai Korelasi&#39;</span><span class="p">:</span> <span class="n">corr_signed</span><span class="o">.</span><span class="n">values</span>
+<span class="p">})</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;Nilai Korelasi&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Format table display</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.float_format&#39;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">%.6f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Display the formatted table</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tabel Autokorelasi dengan Target NO_2:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=====================================&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">corr_table</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Kolom lag yang tersedia: [&#39;h-1&#39;, &#39;h-2&#39;, &#39;h-3&#39;, &#39;h-4&#39;, &#39;h-5&#39;, &#39;h-6&#39;, &#39;h-7&#39;, &#39;h-8&#39;, &#39;h-9&#39;, &#39;h-10&#39;, &#39;h-11&#39;, &#39;h-12&#39;, &#39;h-13&#39;, &#39;h-14&#39;, &#39;h-15&#39;, &#39;h-16&#39;, &#39;h-17&#39;, &#39;h-18&#39;, &#39;h-19&#39;, &#39;h-20&#39;, &#39;h-21&#39;, &#39;h-22&#39;, &#39;h-23&#39;, &#39;h-24&#39;, &#39;h-25&#39;, &#39;h-26&#39;, &#39;h-27&#39;, &#39;h-28&#39;, &#39;h-29&#39;, &#39;h-30&#39;]
+Tabel Autokorelasi dengan Target NO_2:
+=====================================
+Nama Fitur  Nilai Korelasi
+       h-1        0.543573
+       h-5        0.351518
+       h-6        0.338853
+       h-2        0.335974
+      h-11        0.334643
+      h-10        0.329171
+      h-21        0.323407
+       h-4        0.320462
+       h-8        0.306747
+       h-9        0.306632
+      h-22        0.305773
+       h-7        0.304302
+      h-16        0.302203
+      h-28        0.301058
+      h-27        0.299811
+      h-14        0.299437
+       h-3        0.297925
+      h-13        0.295412
+      h-18        0.290909
+      h-12        0.288649
+      h-20        0.279153
+      h-19        0.270082
+      h-15        0.269683
+      h-17        0.267475
+      h-23        0.246546
+      h-29        0.244942
+      h-24        0.223412
+      h-26        0.222270
+      h-25        0.208490
+      h-30        0.206968
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Filter features with correlation &gt; 0.3</span>
+<span class="n">selected_feats</span> <span class="o">=</span> <span class="n">corr_table</span><span class="p">[</span><span class="n">corr_table</span><span class="p">[</span><span class="s1">&#39;Nilai Korelasi&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.3</span><span class="p">][</span><span class="s1">&#39;Nama Fitur&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Features with correlation &gt; 0.3:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Selected features:&quot;</span><span class="p">,</span> <span class="n">selected_feats</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Number of selected features:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">selected_feats</span><span class="p">))</span>
+
+<span class="c1"># Pastikan hanya memilih kolom yang ada di df</span>
+<span class="n">selected_feats_valid</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">selected_feats</span> <span class="k">if</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Selected features (valid):&quot;</span><span class="p">,</span> <span class="n">selected_feats_valid</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Number of valid selected features:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">selected_feats_valid</span><span class="p">))</span>
+<span class="n">selected_feats_valid</span> <span class="o">=</span> <span class="n">selected_feats_valid</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">selected_feats_valid</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;NO_2&#39;</span><span class="p">]]</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Features with correlation &gt; 0.3:
+
+Selected features: [&#39;h-1&#39;, &#39;h-5&#39;, &#39;h-6&#39;, &#39;h-2&#39;, &#39;h-11&#39;, &#39;h-10&#39;, &#39;h-21&#39;, &#39;h-4&#39;, &#39;h-8&#39;, &#39;h-9&#39;, &#39;h-22&#39;, &#39;h-7&#39;, &#39;h-16&#39;, &#39;h-28&#39;]
+
+Number of selected features: 14
+
+Selected features (valid): [&#39;h-1&#39;, &#39;h-5&#39;, &#39;h-6&#39;, &#39;h-2&#39;, &#39;h-11&#39;, &#39;h-10&#39;, &#39;h-21&#39;, &#39;h-4&#39;, &#39;h-8&#39;, &#39;h-9&#39;, &#39;h-22&#39;, &#39;h-7&#39;, &#39;h-16&#39;, &#39;h-28&#39;]
+
+Number of valid selected features: 14
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>t</th>
+      <th>h-28</th>
+      <th>h-16</th>
+      <th>h-7</th>
+      <th>h-22</th>
+      <th>h-9</th>
+      <th>h-8</th>
+      <th>h-4</th>
+      <th>h-21</th>
+      <th>h-10</th>
+      <th>h-11</th>
+      <th>h-2</th>
+      <th>h-6</th>
+      <th>h-5</th>
+      <th>h-1</th>
+      <th>NO_2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2021-10-20</td>
+      <td>0.000027</td>
+      <td>0.000034</td>
+      <td>0.000048</td>
+      <td>0.000064</td>
+      <td>0.000075</td>
+      <td>0.000046</td>
+      <td>0.000056</td>
+      <td>0.000056</td>
+      <td>0.000052</td>
+      <td>0.000050</td>
+      <td>0.000019</td>
+      <td>0.000047</td>
+      <td>0.000049</td>
+      <td>0.000030</td>
+      <td>0.000060</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2021-10-21</td>
+      <td>0.000036</td>
+      <td>0.000046</td>
+      <td>0.000047</td>
+      <td>0.000056</td>
+      <td>0.000046</td>
+      <td>0.000048</td>
+      <td>0.000043</td>
+      <td>0.000048</td>
+      <td>0.000075</td>
+      <td>0.000052</td>
+      <td>0.000030</td>
+      <td>0.000049</td>
+      <td>0.000056</td>
+      <td>0.000060</td>
+      <td>0.000079</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2021-10-22</td>
+      <td>0.000037</td>
+      <td>0.000054</td>
+      <td>0.000049</td>
+      <td>0.000048</td>
+      <td>0.000048</td>
+      <td>0.000047</td>
+      <td>0.000019</td>
+      <td>0.000086</td>
+      <td>0.000046</td>
+      <td>0.000075</td>
+      <td>0.000060</td>
+      <td>0.000056</td>
+      <td>0.000043</td>
+      <td>0.000079</td>
+      <td>0.000051</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2021-10-23</td>
+      <td>0.000049</td>
+      <td>0.000063</td>
+      <td>0.000056</td>
+      <td>0.000086</td>
+      <td>0.000047</td>
+      <td>0.000049</td>
+      <td>0.000030</td>
+      <td>0.000035</td>
+      <td>0.000048</td>
+      <td>0.000046</td>
+      <td>0.000079</td>
+      <td>0.000043</td>
+      <td>0.000019</td>
+      <td>0.000051</td>
+      <td>0.000046</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2021-10-24</td>
+      <td>0.000038</td>
+      <td>0.000072</td>
+      <td>0.000043</td>
+      <td>0.000035</td>
+      <td>0.000049</td>
+      <td>0.000056</td>
+      <td>0.000060</td>
+      <td>0.000063</td>
+      <td>0.000047</td>
+      <td>0.000048</td>
+      <td>0.000051</td>
+      <td>0.000019</td>
+      <td>0.000030</td>
+      <td>0.000046</td>
+      <td>0.000040</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
 <section id="scalling-min-max-normalization">
 <h2>Scalling Min-Max Normalization<a class="headerlink" href="#scalling-min-max-normalization" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">MinMaxScaler</span>
 <span class="n">scaler</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">(</span><span class="n">feature_range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="c1"># Menyimpan data ori 14 Lags ke file </span>
+<span class="n">df_ori14lags</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;dataset/dataOri14Lags&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="n">cols_to_scale</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span> <span class="o">!=</span> <span class="s1">&#39;t&#39;</span><span class="p">]</span>
 
@@ -649,25 +954,169 @@ Disimpan ke: dataset/data.csv
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">df_scaled</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
-<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;dataset/data2.csv&#39;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># Menyimpan data ori 14 Lags ke file </span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;dataset/data14LagsNorm.csv&#39;</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>Kode tersebut membuat <strong>MinMaxScaler(0–1)</strong> lalu menerapkannya ke <strong>semua kolom kecuali <code class="docutils literal notranslate"><span class="pre">t</span></code></strong>, sehingga setiap kolom numerik dipetakan ke rentang ([0,1]). Hasilnya disalin ke <code class="docutils literal notranslate"><span class="pre">df_scaled</span></code>, kemudian disalin kembali ke <code class="docutils literal notranslate"><span class="pre">df</span></code> dan <strong>disimpan</strong> sebagai CSV di <code class="docutils literal notranslate"><span class="pre">dataset/data2.csv</span></code> tanpa indeks. Singkatnya: normalisasi fitur → pratinjau (<code class="docutils literal notranslate"><span class="pre">head()</span></code>) → simpan dataset yang sudah diskalakan.</p>
+<p>Kode tersebut membuat <strong>MinMaxScaler(0–1)</strong> lalu menerapkannya ke <strong>semua kolom kecuali <code class="docutils literal notranslate"><span class="pre">t</span></code></strong>, sehingga setiap kolom numerik dipetakan ke rentang ([0,1]). Hasilnya disalin ke <code class="docutils literal notranslate"><span class="pre">df_scaled</span></code>, kemudian disalin kembali ke <code class="docutils literal notranslate"><span class="pre">df</span></code> dan <strong>disimpan</strong> sebagai CSV di <code class="docutils literal notranslate"><span class="pre">dataset/data14LagsNorm.csv</span></code> tanpa indeks. Singkatnya: normalisasi fitur → pratinjau (<code class="docutils literal notranslate"><span class="pre">head()</span></code>) → simpan dataset yang sudah diskalakan.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_ori14lags</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>t</th>
+      <th>h-28</th>
+      <th>h-16</th>
+      <th>h-7</th>
+      <th>h-22</th>
+      <th>h-9</th>
+      <th>h-8</th>
+      <th>h-4</th>
+      <th>h-21</th>
+      <th>h-10</th>
+      <th>h-11</th>
+      <th>h-2</th>
+      <th>h-6</th>
+      <th>h-5</th>
+      <th>h-1</th>
+      <th>NO_2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2021-10-20</td>
+      <td>0.000027</td>
+      <td>0.000034</td>
+      <td>0.000048</td>
+      <td>0.000064</td>
+      <td>0.000075</td>
+      <td>0.000046</td>
+      <td>0.000056</td>
+      <td>0.000056</td>
+      <td>0.000052</td>
+      <td>0.000050</td>
+      <td>0.000019</td>
+      <td>0.000047</td>
+      <td>0.000049</td>
+      <td>0.000030</td>
+      <td>0.000060</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2021-10-21</td>
+      <td>0.000036</td>
+      <td>0.000046</td>
+      <td>0.000047</td>
+      <td>0.000056</td>
+      <td>0.000046</td>
+      <td>0.000048</td>
+      <td>0.000043</td>
+      <td>0.000048</td>
+      <td>0.000075</td>
+      <td>0.000052</td>
+      <td>0.000030</td>
+      <td>0.000049</td>
+      <td>0.000056</td>
+      <td>0.000060</td>
+      <td>0.000079</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2021-10-22</td>
+      <td>0.000037</td>
+      <td>0.000054</td>
+      <td>0.000049</td>
+      <td>0.000048</td>
+      <td>0.000048</td>
+      <td>0.000047</td>
+      <td>0.000019</td>
+      <td>0.000086</td>
+      <td>0.000046</td>
+      <td>0.000075</td>
+      <td>0.000060</td>
+      <td>0.000056</td>
+      <td>0.000043</td>
+      <td>0.000079</td>
+      <td>0.000051</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2021-10-23</td>
+      <td>0.000049</td>
+      <td>0.000063</td>
+      <td>0.000056</td>
+      <td>0.000086</td>
+      <td>0.000047</td>
+      <td>0.000049</td>
+      <td>0.000030</td>
+      <td>0.000035</td>
+      <td>0.000048</td>
+      <td>0.000046</td>
+      <td>0.000079</td>
+      <td>0.000043</td>
+      <td>0.000019</td>
+      <td>0.000051</td>
+      <td>0.000046</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2021-10-24</td>
+      <td>0.000038</td>
+      <td>0.000072</td>
+      <td>0.000043</td>
+      <td>0.000035</td>
+      <td>0.000049</td>
+      <td>0.000056</td>
+      <td>0.000060</td>
+      <td>0.000063</td>
+      <td>0.000047</td>
+      <td>0.000048</td>
+      <td>0.000051</td>
+      <td>0.000019</td>
+      <td>0.000030</td>
+      <td>0.000046</td>
+      <td>0.000040</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="modeling">
-<h1>Modeling<a class="headerlink" href="#modeling" title="Link to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="modeling-14-lags">
+<h1>Modeling 14 Lags<a class="headerlink" href="#modeling-14-lags" title="Link to this heading">#</a></h1>
 <section id="split-dataset">
-<h2>Split Dataset<a class="headerlink" href="#split-dataset" title="Link to this heading">#</a></h2>
+<h2>Split dataset<a class="headerlink" href="#split-dataset" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
 
-<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;h-3&#39;</span><span class="p">,</span><span class="s1">&#39;h-2&#39;</span><span class="p">,</span><span class="s1">&#39;h-1&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">selected_feats_valid</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;NO_2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">tanggal</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">])</span>
 
@@ -677,8 +1126,8 @@ Disimpan ke: dataset/data.csv
 </div>
 </div>
 </section>
-<section id="id1">
-<h2>Modeling<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<section id="modeling-data-training">
+<h2>Modeling Data Training<a class="headerlink" href="#modeling-data-training" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">TimeSeriesSplit</span><span class="p">,</span> <span class="n">GridSearchCV</span>
@@ -725,7 +1174,7 @@ Disimpan ke: dataset/data.csv
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fitting 5 folds for each of 324 candidates, totalling 1620 fits
-Best params: {&#39;algorithm&#39;: &#39;auto&#39;, &#39;leaf_size&#39;: 15, &#39;n_neighbors&#39;: 15, &#39;p&#39;: 2, &#39;weights&#39;: &#39;uniform&#39;}
+Best params: {&#39;algorithm&#39;: &#39;auto&#39;, &#39;leaf_size&#39;: 15, &#39;n_neighbors&#39;: 31, &#39;p&#39;: 1, &#39;weights&#39;: &#39;uniform&#39;}
 </pre></div>
 </div>
 </div>
@@ -786,7 +1235,7 @@ Best params: {&#39;algorithm&#39;: &#39;auto&#39;, &#39;leaf_size&#39;: 15, &#39
 
 <span class="c1"># Denormalize prediction</span>
 <span class="n">next_day_denorm</span> <span class="o">=</span> <span class="n">next_day_pred</span> <span class="o">*</span> <span class="n">scaler</span><span class="o">.</span><span class="n">data_range_</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">scaler</span><span class="o">.</span><span class="n">data_min_</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Predicted NO2 value for next day: </span><span class="si">{</span><span class="n">convertToMikroGramperM3</span><span class="p">(</span><span class="n">next_day_denorm</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Prediksi NO_2 untuk hari esok: </span><span class="si">{</span><span class="n">convertToMikroGramperM3</span><span class="p">(</span><span class="n">next_day_denorm</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 
 
@@ -796,12 +1245,12 @@ Best params: {&#39;algorithm&#39;: &#39;auto&#39;, &#39;leaf_size&#39;: 15, &#39
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/3ffc00e67a13e1cf07fe91a296bc01e10c289504c4dd30c75aa776aada7df12e.png" src="_images/3ffc00e67a13e1cf07fe91a296bc01e10c289504c4dd30c75aa776aada7df12e.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Modified MAPE: 31.77%
-RMSE: 0.070803
-R2 Score: 0.305806
+<img alt="_images/a1d9edc4e9f9dad9b10e681f1ad83eec5f59b3a78fc891212e555c5f9d684173.png" src="_images/a1d9edc4e9f9dad9b10e681f1ad83eec5f59b3a78fc891212e555c5f9d684173.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Modified MAPE: 29.10%
+RMSE: 0.070682
+R2 Score: 0.307824
 
-Predicted NO2 value for next day: 2.8467585710942096
+Prediksi NO_2 untuk hari esok: 2.6603851932868174
 NO2 Level Category: Baik
 </pre></div>
 </div>
@@ -841,22 +1290,13 @@ NO2 Level Category: Baik
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="get-data.html"
+       href="modeling_forecast.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="math notranslate nohighlight">\(NO_2\)</span> Data Collection and CSV Export</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="modeling_forecast.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Modeling Forecasting dengan KNN Regressor</p>
       </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -883,13 +1323,17 @@ NO2 Level Category: Baik
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grafik-data-time-series-setelah-interpolasi-linear">Grafik data TIme Series (Setelah Interpolasi Linear)</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mengatasi-data-outlier">Mengatasi data Outlier</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mengubah-menjadi-data-superviesd">Mengubah menjadi data Superviesd</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#seleksi-fitur-auto-correlation">Seleksi Fitur Auto Correlation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scalling-min-max-normalization">Scalling Min-Max Normalization</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling">Modeling</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#split-dataset">Split Dataset</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Modeling</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling-14-lags">Modeling 14 Lags</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#split-dataset">Split dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling-data-training">Modeling Data Training</a></li>
 </ul>
 </li>
 </ul>
