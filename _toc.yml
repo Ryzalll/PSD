@@ -25,3 +25,5 @@ chapters:
   - file : get-data
   - file : pre_processing # Missing Value, Data supervised, Normalisasi Min-Max (skala sklearn)
   - file : modeling_forecast
+
+- file : forecastv2
