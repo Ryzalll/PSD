@@ -1,0 +1,1108 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Modeling &amp; Evaluation: Audio Feature Datasets (TSFEL) &#8212; Proyek Sains Data</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'modeling_audio';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/fotoku2.jpg" class="logo__image only-light" alt="Proyek Sains Data - Home"/>
+    <script>document.write(`<img src="_static/fotoku2.jpg" class="logo__image only-dark" alt="Proyek Sains Data - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Profil Saya
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="memahami-bisnis.html">Memahami Bisnis</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="data-understanding.html">Data Understanding</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="explorasi-data.html">Exploarasi Data</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="data-preprocessing.html">Data Pre processing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="outlier_detection.html">Deteksi Outlier Iris</a></li>
+<li class="toctree-l2"><a class="reference internal" href="imbalanced.html">Imbalanced-Learn</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="modeling.html">Modeling menggunakan 3 Algoritma</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="svm.html">SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="naive_bayes.html">Naive Baiyes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="random_forest.html">Random Forest</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="forecasting.html">Forecasting</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="get-data.html"><span class="math notranslate nohighlight">\(NO_2\)</span> Data Collection and CSV Export</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pre_processing.html">Pre-Processing Forecasting</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="modeling_forecast.html">Modeling Forecasting dengan KNN Regressor</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="forecastv2.html">Forecasting <span class="math notranslate nohighlight">\(NO_2\)</span> dengan 30 Hari (14 Lags)</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="voice.html">Voice Classifier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ekstraksuara.html">Ekstraksi Fitur Audio</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmodeling_audio.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/modeling_audio.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Modeling & Evaluation: Audio Feature Datasets (TSFEL)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cara-memakai-model-joblib-untuk-inference">Cara Memakai Model <code class="docutils literal notranslate"><span class="pre">.joblib</span></code> untuk Inference</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="modeling-evaluation-audio-feature-datasets-tsfel">
+<h1>Modeling &amp; Evaluation: Audio Feature Datasets (TSFEL)<a class="headerlink" href="#modeling-evaluation-audio-feature-datasets-tsfel" title="Link to this heading">#</a></h1>
+<p>Notebook ini akan:</p>
+<ol class="arabic simple">
+<li><p>Memuat <strong>dua dataset</strong> hasil ekstraksi fitur: statistik saja &amp; semua fitur.</p></li>
+<li><p>Melakukan <strong>pelatihan beberapa model</strong> (LogReg, RandomForest, SVC, KNN, GradientBoosting).</p></li>
+<li><p>Menampilkan <strong>evaluasi &amp; perbandingan akurasi</strong> antar model pada masing-masing dataset.</p></li>
+<li><p>Menyimpan <strong>model terbaik</strong> dari masing-masing dataset sebagai berkas <strong><code class="docutils literal notranslate"><span class="pre">.joblib</span></code></strong> untuk digunakan pada aplikasi pengenalan suara (web statis + backend Python).</p></li>
+</ol>
+<blockquote>
+<div><p>Pastikan file berikut tersedia lebih dulu (direktori relatif ke notebook ini):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">./dataset/audio_features_statistical.csv</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">./dataset/audio_features_all.csv</span></code></p></li>
+</ul>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">joblib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span><span class="p">,</span> <span class="n">cross_val_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">LabelEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.impute</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimpleImputer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">precision_recall_fscore_support</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">classification_report</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomForestClassifier</span><span class="p">,</span> <span class="n">GradientBoostingClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.svm</span><span class="w"> </span><span class="kn">import</span> <span class="n">SVC</span>
+
+<span class="c1"># Optional: nicer display</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+
+<span class="n">DATA_STAT_PATH</span> <span class="o">=</span> <span class="s1">&#39;./dataset/new/audio_features_statistical.csv&#39;</span>
+<span class="n">DATA_ALL_PATH</span>  <span class="o">=</span> <span class="s1">&#39;./dataset/new/audio_features_all.csv&#39;</span>
+
+<span class="n">MODELS_DIR</span> <span class="o">=</span> <span class="s1">&#39;./models&#39;</span>
+<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">MODELS_DIR</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">RANDOM_STATE</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="n">TEST_SIZE</span> <span class="o">=</span> <span class="mf">0.2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">load_dataset</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load dataset, pisahkan fitur dan target.</span>
+<span class="sd">    - Menghapus kolom non-fitur: filename, nama, target, duration_sec, sr</span>
+<span class="sd">    - Menggunakan hanya kolom numerik untuk fitur</span>
+<span class="sd">    - Meng-encode y (&#39;buka&#39;/&#39;tutup&#39;) menjadi 0/1 via LabelEncoder</span>
+<span class="sd">    Mengembalikan: X (DataFrame), y (ndarray), le (LabelEncoder), feature_cols (list)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;target&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Kolom &#39;target&#39; tidak ditemukan di </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">. Pastikan ekstraksi menyertakan kolom ini.&quot;</span><span class="p">)</span>
+    
+    <span class="n">drop_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;filename&#39;</span><span class="p">,</span><span class="s1">&#39;nama&#39;</span><span class="p">,</span><span class="s1">&#39;target&#39;</span><span class="p">,</span><span class="s1">&#39;duration_sec&#39;</span><span class="p">,</span><span class="s1">&#39;sr&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+    <span class="n">X_all</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">drop_cols</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+    <span class="c1"># gunakan hanya numerik</span>
+    <span class="n">X_num</span> <span class="o">=</span> <span class="n">X_all</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">])</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="c1"># simpan nama kolom fitur</span>
+    <span class="n">feature_cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">X_num</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    
+    <span class="c1"># label encode y</span>
+    <span class="n">le</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+    
+    <span class="c1"># catatan: jika dataset kecil, bisa cek kebocoran/konstanta dsb.</span>
+    <span class="k">return</span> <span class="n">X_num</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">le</span><span class="p">,</span> <span class="n">feature_cols</span><span class="p">,</span> <span class="n">df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_models</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Kembalikan kumpulan kandidat model (name, estimator).&quot;&quot;&quot;</span>
+    <span class="n">models</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;logreg&#39;</span><span class="p">:</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="kc">None</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">LogisticRegression</span><span class="p">(),</span> <span class="s1">&#39;n_jobs&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">),</span>
+        <span class="s1">&#39;rf&#39;</span>    <span class="p">:</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">RANDOM_STATE</span><span class="p">),</span>
+        <span class="s1">&#39;svc&#39;</span>   <span class="p">:</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;rbf&#39;</span><span class="p">,</span> <span class="n">probability</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">RANDOM_STATE</span><span class="p">),</span>
+        <span class="s1">&#39;knn&#39;</span>   <span class="p">:</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
+        <span class="s1">&#39;gb&#39;</span>    <span class="p">:</span> <span class="n">GradientBoostingClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="n">RANDOM_STATE</span><span class="p">),</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">models</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">train_and_evaluate</span><span class="p">(</span><span class="n">name_prefix</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">le</span><span class="p">,</span> <span class="n">feature_cols</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    - Train/test split (stratified)</span>
+<span class="sd">    - Pipeline: SimpleImputer -&gt; StandardScaler -&gt; Model</span>
+<span class="sd">    - Evaluasi di test set</span>
+<span class="sd">    - Juga 5-fold CV accuracy (di train set) untuk gambaran stabilitas</span>
+<span class="sd">    - Kembalikan dict hasil per model &amp; pipeline terbaik</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="n">TEST_SIZE</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">RANDOM_STATE</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span>
+    <span class="p">)</span>
+    
+    <span class="n">models</span> <span class="o">=</span> <span class="n">get_models</span><span class="p">()</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">fitted</span> <span class="o">=</span> <span class="p">{}</span>
+    
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">est</span> <span class="ow">in</span> <span class="n">models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+            <span class="p">(</span><span class="s1">&#39;imputer&#39;</span><span class="p">,</span> <span class="n">SimpleImputer</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">)),</span>
+            <span class="p">(</span><span class="s1">&#39;scaler&#39;</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">(</span><span class="n">with_mean</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">with_std</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span>
+            <span class="p">(</span><span class="s1">&#39;clf&#39;</span><span class="p">,</span> <span class="n">est</span><span class="p">)</span>
+        <span class="p">])</span>
+        
+        <span class="c1"># Cross-val pada train set (accuracy)</span>
+        <span class="n">cv_scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">pipe</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">)</span>
+        
+        <span class="c1"># Fit dan evaluate di test</span>
+        <span class="n">pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+        
+        <span class="n">acc</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+        <span class="n">prec</span><span class="p">,</span> <span class="n">rec</span><span class="p">,</span> <span class="n">f1</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">precision_recall_fscore_support</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;weighted&#39;</span><span class="p">,</span> <span class="n">zero_division</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+        
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s1">&#39;dataset&#39;</span><span class="p">:</span> <span class="n">name_prefix</span><span class="p">,</span>
+            <span class="s1">&#39;model&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+            <span class="s1">&#39;test_accuracy&#39;</span><span class="p">:</span> <span class="n">acc</span><span class="p">,</span>
+            <span class="s1">&#39;test_precision_weighted&#39;</span><span class="p">:</span> <span class="n">prec</span><span class="p">,</span>
+            <span class="s1">&#39;test_recall_weighted&#39;</span><span class="p">:</span> <span class="n">rec</span><span class="p">,</span>
+            <span class="s1">&#39;test_f1_weighted&#39;</span><span class="p">:</span> <span class="n">f1</span><span class="p">,</span>
+            <span class="s1">&#39;cv_acc_mean_train&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">cv_scores</span><span class="p">)),</span>
+            <span class="s1">&#39;cv_acc_std_train&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">cv_scores</span><span class="p">)),</span>
+        <span class="p">})</span>
+        <span class="n">fitted</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;pipeline&#39;</span><span class="p">:</span> <span class="n">pipe</span><span class="p">,</span>
+            <span class="s1">&#39;y_test&#39;</span><span class="p">:</span> <span class="n">y_test</span><span class="p">,</span>
+            <span class="s1">&#39;y_pred&#39;</span><span class="p">:</span> <span class="n">y_pred</span><span class="p">,</span>
+            <span class="s1">&#39;cm&#39;</span><span class="p">:</span> <span class="n">cm</span>
+        <span class="p">}</span>
+    
+    <span class="c1"># tentukan best by test_accuracy</span>
+    <span class="n">best_row</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;test_accuracy&#39;</span><span class="p">])</span>
+    <span class="n">best_name</span> <span class="o">=</span> <span class="n">best_row</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span>
+    <span class="n">best_pipe</span> <span class="o">=</span> <span class="n">fitted</span><span class="p">[</span><span class="n">best_name</span><span class="p">][</span><span class="s1">&#39;pipeline&#39;</span><span class="p">]</span>
+    
+    <span class="c1"># siapkan paket metadata untuk disimpan bersama model</span>
+    <span class="n">model_package</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;pipeline&#39;</span><span class="p">:</span> <span class="n">best_pipe</span><span class="p">,</span>
+        <span class="s1">&#39;label_encoder&#39;</span><span class="p">:</span> <span class="n">le</span><span class="p">,</span>
+        <span class="s1">&#39;feature_columns&#39;</span><span class="p">:</span> <span class="n">feature_cols</span><span class="p">,</span>
+        <span class="s1">&#39;target_classes&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">le</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span>
+    <span class="p">}</span>
+    
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">),</span> <span class="n">fitted</span><span class="p">,</span> <span class="p">(</span><span class="n">best_name</span><span class="p">,</span> <span class="n">model_package</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ===== STATISTICAL DATASET =====</span>
+<span class="n">X_stat</span><span class="p">,</span> <span class="n">y_stat</span><span class="p">,</span> <span class="n">le_stat</span><span class="p">,</span> <span class="n">feat_stat</span><span class="p">,</span> <span class="n">df_stat_raw</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="n">DATA_STAT_PATH</span><span class="p">)</span>
+<span class="n">res_stat</span><span class="p">,</span> <span class="n">fitted_stat</span><span class="p">,</span> <span class="n">best_stat</span> <span class="o">=</span> <span class="n">train_and_evaluate</span><span class="p">(</span><span class="s1">&#39;statistical&#39;</span><span class="p">,</span> <span class="n">X_stat</span><span class="p">,</span> <span class="n">y_stat</span><span class="p">,</span> <span class="n">le_stat</span><span class="p">,</span> <span class="n">feat_stat</span><span class="p">)</span>
+
+<span class="c1"># ===== ALL-FEATURES DATASET =====</span>
+<span class="n">X_all</span><span class="p">,</span> <span class="n">y_all</span><span class="p">,</span> <span class="n">le_all</span><span class="p">,</span> <span class="n">feat_all</span><span class="p">,</span> <span class="n">df_all_raw</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="n">DATA_ALL_PATH</span><span class="p">)</span>
+<span class="n">res_all</span><span class="p">,</span> <span class="n">fitted_all</span><span class="p">,</span> <span class="n">best_all</span> <span class="o">=</span> <span class="n">train_and_evaluate</span><span class="p">(</span><span class="s1">&#39;all_features&#39;</span><span class="p">,</span> <span class="n">X_all</span><span class="p">,</span> <span class="n">y_all</span><span class="p">,</span> <span class="n">le_all</span><span class="p">,</span> <span class="n">feat_all</span><span class="p">)</span>
+
+<span class="c1"># Gabungkan hasil untuk perbandingan</span>
+<span class="n">comparison_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">res_stat</span><span class="p">,</span> <span class="n">res_all</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">comparison_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">&#39;dataset&#39;</span><span class="p">,</span><span class="s1">&#39;test_accuracy&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">comparison_df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">comparison_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>dataset</th>
+      <th>model</th>
+      <th>test_accuracy</th>
+      <th>test_precision_weighted</th>
+      <th>test_recall_weighted</th>
+      <th>test_f1_weighted</th>
+      <th>cv_acc_mean_train</th>
+      <th>cv_acc_std_train</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>all_features</td>
+      <td>logreg</td>
+      <td>0.988095</td>
+      <td>0.988372</td>
+      <td>0.988095</td>
+      <td>0.988094</td>
+      <td>0.963998</td>
+      <td>0.007166</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>all_features</td>
+      <td>rf</td>
+      <td>0.964286</td>
+      <td>0.966667</td>
+      <td>0.964286</td>
+      <td>0.964240</td>
+      <td>0.946043</td>
+      <td>0.024113</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>all_features</td>
+      <td>svc</td>
+      <td>0.964286</td>
+      <td>0.966667</td>
+      <td>0.964286</td>
+      <td>0.964240</td>
+      <td>0.949028</td>
+      <td>0.026234</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>all_features</td>
+      <td>knn</td>
+      <td>0.964286</td>
+      <td>0.966667</td>
+      <td>0.964286</td>
+      <td>0.964240</td>
+      <td>0.915920</td>
+      <td>0.033985</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>all_features</td>
+      <td>gb</td>
+      <td>0.952381</td>
+      <td>0.953409</td>
+      <td>0.952381</td>
+      <td>0.952354</td>
+      <td>0.946133</td>
+      <td>0.032029</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>statistical</td>
+      <td>svc</td>
+      <td>0.892857</td>
+      <td>0.898505</td>
+      <td>0.892857</td>
+      <td>0.892476</td>
+      <td>0.840751</td>
+      <td>0.023005</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>statistical</td>
+      <td>rf</td>
+      <td>0.869048</td>
+      <td>0.874353</td>
+      <td>0.869048</td>
+      <td>0.868582</td>
+      <td>0.825690</td>
+      <td>0.054470</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>statistical</td>
+      <td>logreg</td>
+      <td>0.845238</td>
+      <td>0.855102</td>
+      <td>0.845238</td>
+      <td>0.844156</td>
+      <td>0.825961</td>
+      <td>0.028711</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>statistical</td>
+      <td>gb</td>
+      <td>0.821429</td>
+      <td>0.830612</td>
+      <td>0.821429</td>
+      <td>0.820180</td>
+      <td>0.813795</td>
+      <td>0.034079</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>statistical</td>
+      <td>knn</td>
+      <td>0.797619</td>
+      <td>0.806122</td>
+      <td>0.797619</td>
+      <td>0.796204</td>
+      <td>0.813885</td>
+      <td>0.030581</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span>
+
+<span class="c1"># Simpan tabel perbandingan &amp; tampilkan</span>
+<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s1">&#39;./reports&#39;</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">comp_path</span> <span class="o">=</span> <span class="s1">&#39;./reports/model_comparison.csv&#39;</span>
+<span class="n">comparison_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">comp_path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">comparison_df</span><span class="p">)</span>  <span class="c1"># tampilkan tabel langsung di Jupyter</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Perbandingan model disimpan ke: </span><span class="si">{</span><span class="n">comp_path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>dataset</th>
+      <th>model</th>
+      <th>test_accuracy</th>
+      <th>test_precision_weighted</th>
+      <th>test_recall_weighted</th>
+      <th>test_f1_weighted</th>
+      <th>cv_acc_mean_train</th>
+      <th>cv_acc_std_train</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>all_features</td>
+      <td>logreg</td>
+      <td>0.988095</td>
+      <td>0.988372</td>
+      <td>0.988095</td>
+      <td>0.988094</td>
+      <td>0.963998</td>
+      <td>0.007166</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>all_features</td>
+      <td>rf</td>
+      <td>0.964286</td>
+      <td>0.966667</td>
+      <td>0.964286</td>
+      <td>0.964240</td>
+      <td>0.946043</td>
+      <td>0.024113</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>all_features</td>
+      <td>svc</td>
+      <td>0.964286</td>
+      <td>0.966667</td>
+      <td>0.964286</td>
+      <td>0.964240</td>
+      <td>0.949028</td>
+      <td>0.026234</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>all_features</td>
+      <td>knn</td>
+      <td>0.964286</td>
+      <td>0.966667</td>
+      <td>0.964286</td>
+      <td>0.964240</td>
+      <td>0.915920</td>
+      <td>0.033985</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>all_features</td>
+      <td>gb</td>
+      <td>0.952381</td>
+      <td>0.953409</td>
+      <td>0.952381</td>
+      <td>0.952354</td>
+      <td>0.946133</td>
+      <td>0.032029</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>statistical</td>
+      <td>svc</td>
+      <td>0.892857</td>
+      <td>0.898505</td>
+      <td>0.892857</td>
+      <td>0.892476</td>
+      <td>0.840751</td>
+      <td>0.023005</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>statistical</td>
+      <td>rf</td>
+      <td>0.869048</td>
+      <td>0.874353</td>
+      <td>0.869048</td>
+      <td>0.868582</td>
+      <td>0.825690</td>
+      <td>0.054470</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>statistical</td>
+      <td>logreg</td>
+      <td>0.845238</td>
+      <td>0.855102</td>
+      <td>0.845238</td>
+      <td>0.844156</td>
+      <td>0.825961</td>
+      <td>0.028711</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>statistical</td>
+      <td>gb</td>
+      <td>0.821429</td>
+      <td>0.830612</td>
+      <td>0.821429</td>
+      <td>0.820180</td>
+      <td>0.813795</td>
+      <td>0.034079</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>statistical</td>
+      <td>knn</td>
+      <td>0.797619</td>
+      <td>0.806122</td>
+      <td>0.797619</td>
+      <td>0.796204</td>
+      <td>0.813885</td>
+      <td>0.030581</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Perbandingan model disimpan ke: ./reports/model_comparison.csv
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_confusion_matrix</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">class_names</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Predicted&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;True&#39;</span><span class="p">)</span>
+    <span class="n">tick_marks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">class_names</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">tick_marks</span><span class="p">,</span> <span class="n">class_names</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">tick_marks</span><span class="p">,</span> <span class="n">class_names</span><span class="p">)</span>
+    <span class="c1"># Annotate</span>
+    <span class="n">thresh</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">/</span> <span class="mf">2.</span> <span class="k">if</span> <span class="n">cm</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">0.5</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="nb">format</span><span class="p">(</span><span class="n">cm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="s1">&#39;d&#39;</span><span class="p">),</span>
+                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                     <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Plot untuk model terbaik masing-masing dataset</span>
+<span class="n">best_name_stat</span><span class="p">,</span> <span class="n">best_pkg_stat</span> <span class="o">=</span> <span class="n">best_stat</span>
+<span class="n">best_cm_stat</span> <span class="o">=</span> <span class="n">fitted_stat</span><span class="p">[</span><span class="n">best_name_stat</span><span class="p">][</span><span class="s1">&#39;cm&#39;</span><span class="p">]</span>
+<span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">best_cm_stat</span><span class="p">,</span> <span class="n">best_pkg_stat</span><span class="p">[</span><span class="s1">&#39;target_classes&#39;</span><span class="p">],</span> <span class="sa">f</span><span class="s1">&#39;CM - STAT - Best: </span><span class="si">{</span><span class="n">best_name_stat</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">best_name_all</span><span class="p">,</span> <span class="n">best_pkg_all</span> <span class="o">=</span> <span class="n">best_all</span>
+<span class="n">best_cm_all</span> <span class="o">=</span> <span class="n">fitted_all</span><span class="p">[</span><span class="n">best_name_all</span><span class="p">][</span><span class="s1">&#39;cm&#39;</span><span class="p">]</span>
+<span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">best_cm_all</span><span class="p">,</span> <span class="n">best_pkg_all</span><span class="p">[</span><span class="s1">&#39;target_classes&#39;</span><span class="p">],</span> <span class="sa">f</span><span class="s1">&#39;CM - ALL - Best: </span><span class="si">{</span><span class="n">best_name_all</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/2a8c172e238e8b5b2e7e3c601ba26d463a6e0a81126a63c213e30e535e73e591.png" src="_images/2a8c172e238e8b5b2e7e3c601ba26d463a6e0a81126a63c213e30e535e73e591.png" />
+<img alt="_images/54bbcd9ae26a40691bae39403564f475782f07c1f877e402d317c7ca27415c37.png" src="_images/54bbcd9ae26a40691bae39403564f475782f07c1f877e402d317c7ca27415c37.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Simpan paket model (pipeline + label encoder + feature columns + kelas)</span>
+<span class="n">best_name_stat</span><span class="p">,</span> <span class="n">best_pkg_stat</span> <span class="o">=</span> <span class="n">best_stat</span>
+<span class="n">best_name_all</span><span class="p">,</span> <span class="n">best_pkg_all</span> <span class="o">=</span> <span class="n">best_all</span>
+
+<span class="n">out_stat_model</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">MODELS_DIR</span><span class="p">,</span> <span class="s1">&#39;model_statistical.joblib&#39;</span><span class="p">)</span>
+<span class="n">out_all_model</span>  <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">MODELS_DIR</span><span class="p">,</span> <span class="s1">&#39;model_all_features.joblib&#39;</span><span class="p">)</span>
+
+<span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">best_pkg_stat</span><span class="p">,</span> <span class="n">out_stat_model</span><span class="p">)</span>
+<span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">best_pkg_all</span><span class="p">,</span> <span class="n">out_all_model</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Model terbaik (statistical) disimpan ke:&#39;</span><span class="p">,</span> <span class="n">out_stat_model</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Model terbaik (all features) disimpan ke:&#39;</span><span class="p">,</span> <span class="n">out_all_model</span><span class="p">)</span>
+
+<span class="c1"># Simpan juga signature kolom untuk referensi cepat (JSON)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">MODELS_DIR</span><span class="p">,</span><span class="s1">&#39;feature_columns_statistical.json&#39;</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">best_pkg_stat</span><span class="p">[</span><span class="s1">&#39;feature_columns&#39;</span><span class="p">],</span> <span class="n">f</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">MODELS_DIR</span><span class="p">,</span><span class="s1">&#39;feature_columns_all.json&#39;</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">best_pkg_all</span><span class="p">[</span><span class="s1">&#39;feature_columns&#39;</span><span class="p">],</span> <span class="n">f</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Feature column signatures disimpan.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model terbaik (statistical) disimpan ke: ./models\model_statistical.joblib
+Model terbaik (all features) disimpan ke: ./models\model_all_features.joblib
+Feature column signatures disimpan.
+</pre></div>
+</div>
+</div>
+</div>
+<section id="cara-memakai-model-joblib-untuk-inference">
+<h2>Cara Memakai Model <code class="docutils literal notranslate"><span class="pre">.joblib</span></code> untuk Inference<a class="headerlink" href="#cara-memakai-model-joblib-untuk-inference" title="Link to this heading">#</a></h2>
+<p>Contoh kode singkat memuat model dan melakukan prediksi terhadap satu baris fitur (numpy array / DataFrame satu baris) sesuai <strong>urutan kolom fitur</strong> yang tersimpan:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Contoh pemakaian (offline, setelah model tersimpan):</span>
+<span class="c1"># import joblib</span>
+<span class="c1"># import numpy as np</span>
+<span class="c1"># pkg = joblib.load(&#39;./models/model_statistical.joblib&#39;)</span>
+<span class="c1"># pipe = pkg[&#39;pipeline&#39;]</span>
+<span class="c1"># classes = pkg[&#39;target_classes&#39;]</span>
+<span class="c1"># feature_cols = pkg[&#39;feature_columns&#39;]</span>
+<span class="c1">#</span>
+<span class="c1"># # X_one harus mengikuti urutan &#39;feature_cols&#39;</span>
+<span class="c1"># X_one = np.zeros((1, len(feature_cols)), dtype=float)</span>
+<span class="c1"># y_pred_idx = pipe.predict(X_one)[0]</span>
+<span class="c1"># y_pred_label = classes[y_pred_idx]</span>
+<span class="c1"># print(&#39;Prediksi:&#39;, y_pred_label)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cara-memakai-model-joblib-untuk-inference">Cara Memakai Model <code class="docutils literal notranslate"><span class="pre">.joblib</span></code> untuk Inference</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Ryzalll
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
